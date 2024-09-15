@@ -84,8 +84,27 @@
             //    Console.WriteLine("NAKLEBIA");
             //}
 
+            //Console.WriteLine("First Name");
+            //string firstName = Console.ReadLine();
+
+            //Console.WriteLine("Last Name");
+            //string lastName = Console.ReadLine();
+
+            //Console.WriteLine("Age");
+            ////byte age = byte.Parse(Console.ReadLine());
+            //byte age = Convert.ToByte(Console.ReadLine());
 
 
+            ////IMPLICIT CAST  არაცხადი გადაყვანა
+            //byte x = 10;
+            //int y = x;
+
+
+            //EXPLICIT CAST  ცხადი გადაყვანა
+            int x = 10;
+            byte y = (byte)x;
+
+            Console.WriteLine($"X: {x} Y: {y}");
         }
     }
 }
