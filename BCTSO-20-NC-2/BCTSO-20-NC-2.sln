@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture6", "Lecture6\Lectur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithms", "Algorithms\Algorithms.csproj", "{223E6E24-DDFD-4491-AC66-1D01D56CA53F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture7", "Lecture7\Lecture7.csproj", "{7F0C80EC-928A-4BF8-A5A9-E74D57BD5564}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture7", "Lecture7\Lecture7.csproj", "{7F0C80EC-928A-4BF8-A5A9-E74D57BD5564}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture8", "Lecture8\Lecture8.csproj", "{4FAB712F-B7D2-4398-B82D-9790AD54D9CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{7F0C80EC-928A-4BF8-A5A9-E74D57BD5564}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F0C80EC-928A-4BF8-A5A9-E74D57BD5564}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F0C80EC-928A-4BF8-A5A9-E74D57BD5564}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FAB712F-B7D2-4398-B82D-9790AD54D9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FAB712F-B7D2-4398-B82D-9790AD54D9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FAB712F-B7D2-4398-B82D-9790AD54D9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FAB712F-B7D2-4398-B82D-9790AD54D9CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
