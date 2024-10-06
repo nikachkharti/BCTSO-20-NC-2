@@ -1,4 +1,5 @@
 ﻿using Lecture8.MiniBank.Models;
+using System.ComponentModel.DataAnnotations;
 
 //1.მემკვიდრეობა +
 //2.პოლიმორფიზმი (მრავალფორმიანობა) +
@@ -131,29 +132,39 @@ namespace Lecture8
 
 
             #region MINI BANK
-            //Client client1 = new()
-            //{
-            //    FirstName = "Vazha",
-            //    LastName = "Vardiashvili",
-            //    IdentityNumber = "12345678945",
-            //    Account = new Account()
-            //    {
-            //        Balance = 1000,
-            //        Currency = "GEL",
-            //        Iban = "0123456789601234567896"
-            //    }
-            //};
+            Client client1 = new()
+            {
+                FirstName = "Vazha",
+                LastName = "Vardiashvili",
+                IdentityNumber = "12345678945",
+                Account = new Account()
+                {
+                    Balance = 1000,
+                    Currency = "GEL",
+                    Iban = "0123456789601234567896"
+                }
+            };
 
-            //Account client2Account = new Account();
-            //client2Account.Currency = "GEL";
-            //client2Account.Balance = 1000;
-            //client2Account.Iban = "0123456789601234567899";
+            Account client2Account = new Account();
+            client2Account.Currency = "GEL";
+            client2Account.Balance = 1000;
+            client2Account.Iban = "0123456789601234567899";
 
-            //Client client2 = new();
-            //client2.FirstName = "Saba";
-            //client2.LastName = "Beridze";
-            //client2.IdentityNumber = "98745612305";
-            //client2.Account = client2Account;
+            Client client2 = new();
+            client2.FirstName = "Saba";
+            client2.LastName = "Beridze";
+            client2.IdentityNumber = "98745612305";
+            client2.Account = client2Account;
+
+            try
+            {
+                client2.Account.Withdraw(7000);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
 
 
             //Console.WriteLine(client1.Account);
@@ -165,7 +176,10 @@ namespace Lecture8
             //Console.WriteLine("--------------");
 
             //Console.WriteLine(client1.Account);
-            //Console.WriteLine(client2.Account); 
+            //Console.WriteLine(client2.Account);
+
+
+
             #endregion
         }
 

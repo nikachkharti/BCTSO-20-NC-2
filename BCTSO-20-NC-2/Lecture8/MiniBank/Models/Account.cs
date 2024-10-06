@@ -1,4 +1,7 @@
-﻿namespace Lecture8.MiniBank.Models
+﻿using Lecture8.MiniBank.Exceptions;
+using System.ComponentModel.DataAnnotations;
+
+namespace Lecture8.MiniBank.Models
 {
     public class Account
     {
@@ -46,9 +49,18 @@
 
         public void Withdraw(decimal amuont)
         {
+            if (amuont < 0)
+            {
+                throw new ArgumentException("Negative Number");
+            }
+
             if (balance >= amuont)
             {
                 balance -= amuont;
+            }
+            else
+            {
+                throw new InsufficientFundsException();
             }
         }
 
@@ -59,10 +71,19 @@
 
         public void Transfer(Account account, decimal amount)
         {
+            if (string.IsNullOrWhiteSpace(account.Iban))
+            {
+                throw new ArgumentException("Invalid account");
+            }
+
             if (balance >= amount)
             {
                 balance -= amount;
                 account.balance += amount;
+            }
+            else
+            {
+                throw new InsufficientFundsException();
             }
         }
 
