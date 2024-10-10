@@ -1,13 +1,12 @@
 ﻿using Lecture8.MiniBank.Models;
-using System.ComponentModel.DataAnnotations;
 
 //1.მემკვიდრეობა +
 //2.პოლიმორფიზმი (მრავალფორმიანობა) +
 //3.ენკაფსულაცია +
-//4.აბსტრაქცია
+//4.აბსტრაქცია +
 
 
-public class Person
+public abstract class Person
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -26,8 +25,7 @@ public class Person
 
     public virtual void Talk() => Console.WriteLine($"Hello I am a Person {FirstName} {LastName} I am {Age} years old");
 }
-
-public class Employee : Person
+public abstract class Employee : Person
 {
     public double Salary { get; set; }
 
@@ -75,11 +73,20 @@ public class Lecturer : Employee
     public override void Talk() => Console.WriteLine($"Hello I am a Student {FirstName} {LastName} I am {Age} years old I have subject {Subject.Title} and salary {Salary} GEL");
 }
 
+public class CEO : Employee
+{
+}
 
 public class Subject
 {
     public string Title { get; set; }
 }
+
+
+
+
+
+
 
 
 
@@ -89,46 +96,54 @@ namespace Lecture8
     {
         static void Main()
         {
-            Person personObj = new Person()
-            {
-                FirstName = "Giorgi",
-                LastName = "Giorgadze",
-                Age = 18
-            };
-            personObj.Talk();
 
-            Employee employee = new Employee()
-            {
-                FirstName = "Giorgi",
-                LastName = "Menteshashvili",
-                Age = 20,
-                Salary = 1000
-            };
-            employee.Talk();
+            //Person personObj = new Person()
+            //{
+            //    FirstName = "Giorgi",
+            //    LastName = "Giorgadze",
+            //    Age = 18
+            //};
+            //personObj.Talk();
 
-            Student student = new Student()
-            {
-                FirstName = "Nikoloz",
-                LastName = "Kikiani",
-                Age = 29,
-                Score = 100,
-                Subject = new Subject() { Title = "C#" }
-            };
-            student.Talk();
+            //Employee employee = new Employee()
+            //{
+            //    FirstName = "Giorgi",
+            //    LastName = "Menteshashvili",
+            //    Age = 20,
+            //    Salary = 1000
+            //};
+            //employee.Talk();
 
-            Lecturer lecturer = new()
-            {
-                FirstName = "Nikoloz",
-                LastName = "Chkhartishvili",
-                Age = 29,
-                Salary = 100,
-                Subject = new Subject() { Title = "C#" }
-            };
-            lecturer.Talk();
+            //Student student = new Student()
+            //{
+            //    FirstName = "Nikoloz",
+            //    LastName = "Kikiani",
+            //    Age = 29,
+            //    Score = 100,
+            //    Subject = new Subject() { Title = "C#" }
+            //};
+            //student.Talk();
+
+            //Lecturer lecturer = new()
+            //{
+            //    FirstName = "Nikoloz",
+            //    LastName = "Chkhartishvili",
+            //    Age = 29,
+            //    Salary = 100,
+            //    Subject = new Subject() { Title = "C#" }
+            //};
+            //lecturer.Talk();
 
 
 
             //SayHello(lecturer);
+
+
+
+            //Animal tigerObject = new Tiger() { Name = "Tiger" };
+            //Animal zebraObject = new Zebra() { Name = "Zebra" };
+            //Animal lionObject = new Lion() { Name = "Lion" };
+
 
 
             #region MINI BANK
