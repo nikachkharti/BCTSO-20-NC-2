@@ -5,14 +5,9 @@
         static void Main(string[] args)
         {
         }
-        //FirstOrDefault
-        //LastOrDefault
-        //FindAll
-        //FindIndex
-        //FindLastIndex
-        //Sum
+
         //Reverse
-        //Sort
+        //OrderBy
         //Max
         //Min
         //Any
