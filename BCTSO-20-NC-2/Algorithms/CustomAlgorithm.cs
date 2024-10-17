@@ -1,6 +1,8 @@
-﻿namespace Algorithms
+﻿using Algorithms.Models;
+
+namespace Algorithms
 {
-    public static class Algorithms
+    public static class CustomAlgorithm
     {
         public static int FirstOrDefault(int[] collection, int value)
         {
@@ -73,6 +75,34 @@
             for (int i = 0; i < collection.Count; i++)
             {
                 if (collection[i] == value)
+                {
+                    result.Add(collection[i]);
+                }
+            }
+
+            return result;
+        }
+        public static List<Vehicle> Where(List<Vehicle> collection, string make)
+        {
+            List<Vehicle> result = new();
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i].Make.Trim().ToLower() == make.Trim().ToLower())
+                {
+                    result.Add(collection[i]);
+                }
+            }
+
+            return result;
+        }
+        public static List<Vehicle> Where(Vehicle[] collection, string make)
+        {
+            List<Vehicle> result = new();
+
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (collection[i].Make.Trim().ToLower().Contains(make.Trim().ToLower()))
                 {
                     result.Add(collection[i]);
                 }
