@@ -15,6 +15,10 @@
             //string[] result =
             //File.ReadAllLines(@"../../../Test.txt");
             //byte[] result = File.ReadAllBytes(@"../../../Test.txt");
+
+
+            //1.მოძებნოთ ყველა მერსედესი
+            //2.მოძებნოთ 10 ყველაზე ეკონომიური მანქანა
         }
     }
 }
