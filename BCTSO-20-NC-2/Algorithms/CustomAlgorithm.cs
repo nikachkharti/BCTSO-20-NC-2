@@ -331,5 +331,28 @@ namespace Algorithms
             return true;
         }
 
+        public static int[] Reverse(int[] collection)
+        {
+            Stack<int> stack = new();
+
+            for (int i = 0; i < collection.Length; i++)
+            {
+                stack.Push(collection[i]);
+            }
+
+            return stack.ToArray();
+        }
+        public static List<int> Reverse(List<int> collection)
+        {
+            Stack<int> stack = new();
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                stack.Push(collection[i]);
+            }
+
+            return stack.ToList();
+        }
+
     }
 }
