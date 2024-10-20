@@ -354,5 +354,8 @@ namespace Algorithms
             return stack.ToList();
         }
 
+        //TODO Union
+        //TODO Intersect
+
     }
 }
