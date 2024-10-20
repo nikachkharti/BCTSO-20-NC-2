@@ -7,10 +7,5 @@
         }
 
         //Reverse
-        //OrderBy
-        //Max
-        //Min
-        //Any
-        //All
     }
 }
