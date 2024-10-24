@@ -1,9 +1,29 @@
 ﻿using Algorithms.Models;
+using System.Security.Cryptography;
 
 namespace Algorithms
 {
+    //დელეგატი არის ტიპი რომელმაც იცის თუ როგორ მიინიჭოს ფუნქცია
+
+    public delegate bool ComparerDelegateForInts(int arg);
+    public delegate bool ComparerDelegateForVehicles(Vehicle vehicle);
+    public delegate Vehicle SelectorDelegateForVehicles(string arg);
+    public delegate bool ComparerDelegateForVehiclesComparison(Vehicle arg1, Vehicle arg2);
+
     public static class CustomAlgorithm
     {
+        public static int FirstOrDefault(int[] collection, ComparerDelegateForInts comparerFunction)
+        {
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (comparerFunction(collection[i]))
+                {
+                    return collection[i];
+                }
+            }
+
+            return default;
+        }
         public static int FirstOrDefault(int[] collection, int value)
         {
             for (int i = 0; i < collection.Length; i++)
@@ -28,12 +48,25 @@ namespace Algorithms
 
             return default;
         }
-
-        public static int LastOrDefault(int[] collection, int value)
+        public static int FirstOrDefault(List<int> collection, ComparerDelegateForInts comparerFunction)
         {
-            for (int i = collection.Length - 1; i >= 0; i--)
+            for (int i = 0; i < collection.Count; i++)
             {
-                if (collection[i] == value)
+                if (comparerFunction(collection[i]))
+                {
+                    return collection[i];
+                }
+            }
+
+            return default;
+        }
+
+
+        public static int LastOrDefault(List<int> collection, ComparerDelegateForInts comparerFunction)
+        {
+            for (int i = collection.Count - 1; i >= 0; i--)
+            {
+                if (comparerFunction(collection[i]))
                 {
                     return collection[i];
                 }
@@ -53,21 +86,32 @@ namespace Algorithms
 
             return default;
         }
-
-        public static int[] Where(int[] collection, int value)
+        public static int LastOrDefault(int[] collection, int value)
         {
-            List<int> result = new();
-
-            for (int i = 0; i < collection.Length; i++)
+            for (int i = collection.Length - 1; i >= 0; i--)
             {
                 if (collection[i] == value)
                 {
-                    result.Add(collection[i]);
+                    return collection[i];
                 }
             }
 
-            return result.ToArray();
+            return default;
         }
+        public static int LastOrDefault(int[] collection, ComparerDelegateForInts comparerFunction)
+        {
+            for (int i = collection.Length - 1; i >= 0; i--)
+            {
+                if (comparerFunction(collection[i]))
+                {
+                    return collection[i];
+                }
+            }
+
+            return default;
+        }
+
+
         public static List<int> Where(List<int> collection, int value)
         {
             List<int> result = new();
@@ -82,13 +126,57 @@ namespace Algorithms
 
             return result;
         }
-        public static List<Vehicle> Where(List<Vehicle> collection, string make)
+        public static List<int> Where(List<int> collection, ComparerDelegateForInts comparerFunction)
+        {
+            List<int> result = new();
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (comparerFunction(collection[i]))
+                {
+                    result.Add(collection[i]);
+                }
+            }
+
+            return result;
+        }
+
+        public static int[] Where(int[] collection, ComparerDelegateForInts comparerFunction)
+        {
+            List<int> result = new();
+
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (comparerFunction(collection[i]))
+                {
+                    result.Add(collection[i]);
+                }
+            }
+
+            return result.ToArray();
+        }
+        public static int[] Where(int[] collection, int value)
+        {
+            List<int> result = new();
+
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (collection[i] == value)
+                {
+                    result.Add(collection[i]);
+                }
+            }
+
+            return result.ToArray();
+        }
+
+        public static List<Vehicle> Where(List<Vehicle> collection, ComparerDelegateForVehicles comparerFunction)
         {
             List<Vehicle> result = new();
 
             for (int i = 0; i < collection.Count; i++)
             {
-                if (collection[i].Make.Trim().ToLower() == make.Trim().ToLower())
+                if (comparerFunction(collection[i]))
                 {
                     result.Add(collection[i]);
                 }
@@ -112,6 +200,19 @@ namespace Algorithms
         }
 
 
+
+        public static int IndexOf(int[] collection, ComparerDelegateForInts comparerFunction)
+        {
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (comparerFunction(collection[i]))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
         public static int IndexOf(int[] collection, int value)
         {
             for (int i = 0; i < collection.Length; i++)
@@ -136,6 +237,19 @@ namespace Algorithms
 
             return -1;
         }
+        public static int IndexOf(List<int> collection, ComparerDelegateForInts comparerFunction)
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (comparerFunction(collection[i]))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
 
         public static int LastIndexOf(int[] collection, int value)
         {
@@ -214,6 +328,27 @@ namespace Algorithms
 
             return vehicles;
         }
+
+
+        public static Vehicle[] OrderBy(Vehicle[] vehicles, ComparerDelegateForVehiclesComparison comparerFunction)
+        {
+            for (int i = 0; i < vehicles.Length - 1; i++)
+            {
+                for (int j = i + 1; j < vehicles.Length; j++)
+                {
+                    if (comparerFunction(vehicles[j], vehicles[i]))
+                    {
+                        Vehicle temp = vehicles[j];
+                        vehicles[j] = vehicles[i];
+                        vehicles[i] = temp;
+                    }
+                }
+            }
+
+            return vehicles;
+        }
+
+
         public static Vehicle[] Select(string[] stringVehicles)
         {
             Vehicle[] vehicles = new Vehicle[stringVehicles.Length];
@@ -224,6 +359,17 @@ namespace Algorithms
 
             return vehicles;
         }
+        public static Vehicle[] Select(string[] stringVehicles, SelectorDelegateForVehicles transformerFunction)
+        {
+            Vehicle[] vehicles = new Vehicle[stringVehicles.Length];
+            for (int i = 0; i < stringVehicles.Length; i++)
+            {
+                vehicles[i] = transformerFunction(stringVehicles[i]);
+            }
+
+            return vehicles;
+        }
+
 
         public static int Max(List<int> intList)
         {
