@@ -1,22 +1,29 @@
 ﻿using Algorithms.Models;
-using System.Security.Cryptography;
 
 namespace Algorithms
 {
     //დელეგატი არის ტიპი რომელმაც იცის თუ როგორ მიინიჭოს ფუნქცია
 
-    public delegate bool ComparerDelegateForInts(int arg);
-    public delegate bool ComparerDelegateForVehicles(Vehicle vehicle);
-    public delegate Vehicle SelectorDelegateForVehicles(string arg);
-    public delegate bool ComparerDelegateForVehiclesComparison(Vehicle arg1, Vehicle arg2);
+
+    //გვაქვს 3 ტიპის ჩაშენებული ჯენერიკ დელეგატი რომელსაც შეუძლია მიინიჭოს ნებისმიერი ფუნქცია ჩვენი სურვილის მიხედვით.
+
+    //Action ---> არის დელეგატი რომელიც იღებს ისეთ ფუნქციებს რომლის დასაბრუნებელი ტიპი არის void, მისაღებ ტიპებს ვუსაზღვრავთ ჩვენ
+    //Predicate ---> არის დელეგატი რომელიც იღებს ისეთ ფუნქციას რომლის დასაბრუნებელი ტიპი არის bool, მისაღებ ტიპებს ვუსაზღვრავთ ჩვენ
+    //Func ---> არის დელეგატი რომელსაც მისაღებ და დასაბრუნებელ ტიპებს ვუსაზღვრავთ ჩვენ
+
+
+    //public delegate bool ComparerDelegateForInts(int arg);
+    //public delegate bool ComparerDelegateForVehicles(Vehicle vehicle);
+    //public delegate Vehicle SelectorDelegateForVehicles(string arg);
+    //public delegate bool ComparerDelegateForVehiclesComparison<T>(T arg1, T arg2);
 
     public static class CustomAlgorithm
     {
-        public static int FirstOrDefault(int[] collection, ComparerDelegateForInts comparerFunction)
+        public static T FirstOrDefault<T>(T[] collection, Predicate<T> predicate)
         {
             for (int i = 0; i < collection.Length; i++)
             {
-                if (comparerFunction(collection[i]))
+                if (predicate(collection[i]))
                 {
                     return collection[i];
                 }
@@ -24,35 +31,11 @@ namespace Algorithms
 
             return default;
         }
-        public static int FirstOrDefault(int[] collection, int value)
-        {
-            for (int i = 0; i < collection.Length; i++)
-            {
-                if (collection[i] == value)
-                {
-                    return collection[i];
-                }
-            }
-
-            return default;
-        }
-        public static int FirstOrDefault(List<int> collection, int value)
+        public static T FirstOrDefault<T>(List<T> collection, Predicate<T> predicate)
         {
             for (int i = 0; i < collection.Count; i++)
             {
-                if (collection[i] == value)
-                {
-                    return collection[i];
-                }
-            }
-
-            return default;
-        }
-        public static int FirstOrDefault(List<int> collection, ComparerDelegateForInts comparerFunction)
-        {
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (comparerFunction(collection[i]))
+                if (predicate(collection[i]))
                 {
                     return collection[i];
                 }
@@ -61,12 +44,11 @@ namespace Algorithms
             return default;
         }
 
-
-        public static int LastOrDefault(List<int> collection, ComparerDelegateForInts comparerFunction)
+        public static T LastOrDefault<T>(List<T> collection, Func<T, bool> predicate)
         {
             for (int i = collection.Count - 1; i >= 0; i--)
             {
-                if (comparerFunction(collection[i]))
+                if (predicate(collection[i]))
                 {
                     return collection[i];
                 }
@@ -74,35 +56,11 @@ namespace Algorithms
 
             return default;
         }
-        public static int LastOrDefault(List<int> collection, int value)
-        {
-            for (int i = collection.Count - 1; i >= 0; i--)
-            {
-                if (collection[i] == value)
-                {
-                    return collection[i];
-                }
-            }
-
-            return default;
-        }
-        public static int LastOrDefault(int[] collection, int value)
+        public static T LastOrDefault<T>(T[] collection, Func<T, bool> predicate)
         {
             for (int i = collection.Length - 1; i >= 0; i--)
             {
-                if (collection[i] == value)
-                {
-                    return collection[i];
-                }
-            }
-
-            return default;
-        }
-        public static int LastOrDefault(int[] collection, ComparerDelegateForInts comparerFunction)
-        {
-            for (int i = collection.Length - 1; i >= 0; i--)
-            {
-                if (comparerFunction(collection[i]))
+                if (predicate(collection[i]))
                 {
                     return collection[i];
                 }
@@ -111,14 +69,13 @@ namespace Algorithms
             return default;
         }
 
-
-        public static List<int> Where(List<int> collection, int value)
+        public static List<T> Where<T>(List<T> collection, Func<T, bool> predicate)
         {
-            List<int> result = new();
+            List<T> result = new();
 
             for (int i = 0; i < collection.Count; i++)
             {
-                if (collection[i] == value)
+                if (predicate(collection[i]))
                 {
                     result.Add(collection[i]);
                 }
@@ -126,42 +83,13 @@ namespace Algorithms
 
             return result;
         }
-        public static List<int> Where(List<int> collection, ComparerDelegateForInts comparerFunction)
+        public static T[] Where<T>(T[] collection, Func<T, bool> predicate)
         {
-            List<int> result = new();
-
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (comparerFunction(collection[i]))
-                {
-                    result.Add(collection[i]);
-                }
-            }
-
-            return result;
-        }
-
-        public static int[] Where(int[] collection, ComparerDelegateForInts comparerFunction)
-        {
-            List<int> result = new();
+            List<T> result = new();
 
             for (int i = 0; i < collection.Length; i++)
             {
-                if (comparerFunction(collection[i]))
-                {
-                    result.Add(collection[i]);
-                }
-            }
-
-            return result.ToArray();
-        }
-        public static int[] Where(int[] collection, int value)
-        {
-            List<int> result = new();
-
-            for (int i = 0; i < collection.Length; i++)
-            {
-                if (collection[i] == value)
+                if (predicate(collection[i]))
                 {
                     result.Add(collection[i]);
                 }
@@ -170,335 +98,396 @@ namespace Algorithms
             return result.ToArray();
         }
 
-        public static List<Vehicle> Where(List<Vehicle> collection, ComparerDelegateForVehicles comparerFunction)
-        {
-            List<Vehicle> result = new();
+        //public static T[] OrderBy<T>(T[] list) where T : IComparable<T>
+        //{
+        //    for (int i = 0; i < list.Length - 1; i++)
+        //    {
+        //        for (int j = i + 1; j < list.Length; j++)
+        //        {
+        //            if (list[j].CompareTo(list[i]) == -1)
+        //            {
+        //                T temp = list[j];
+        //                list[j] = list[i];
+        //                list[i] = temp;
+        //            }
+        //        }
+        //    }
 
-            for (int i = 0; i < collection.Count; i++)
+        //    return list;
+        //}
+
+
+        public static T[] OrderBy<T>(T[] array, Func<T, T, bool> comparerFunction)
+        {
+            for (int i = 0; i < array.Length - 1; i++)
             {
-                if (comparerFunction(collection[i]))
+                for (int j = i + 1; j < array.Length; j++)
                 {
-                    result.Add(collection[i]);
-                }
-            }
-
-            return result;
-        }
-        public static List<Vehicle> Where(Vehicle[] collection, string make)
-        {
-            List<Vehicle> result = new();
-
-            for (int i = 0; i < collection.Length; i++)
-            {
-                if (collection[i].Make.Trim().ToLower().Contains(make.Trim().ToLower()))
-                {
-                    result.Add(collection[i]);
-                }
-            }
-
-            return result;
-        }
-
-
-
-        public static int IndexOf(int[] collection, ComparerDelegateForInts comparerFunction)
-        {
-            for (int i = 0; i < collection.Length; i++)
-            {
-                if (comparerFunction(collection[i]))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-        public static int IndexOf(int[] collection, int value)
-        {
-            for (int i = 0; i < collection.Length; i++)
-            {
-                if (collection[i] == value)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-        public static int IndexOf(List<int> collection, int value)
-        {
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (collection[i] == value)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-        public static int IndexOf(List<int> collection, ComparerDelegateForInts comparerFunction)
-        {
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (comparerFunction(collection[i]))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-
-        public static int LastIndexOf(int[] collection, int value)
-        {
-            for (int i = collection.Length - 1; i >= 0; i--)
-            {
-                if (collection[i] == value)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-        public static int LastIndexOf(List<int> collection, int value)
-        {
-            for (int i = collection.Count - 1; i >= 0; i--)
-            {
-                if (collection[i] == value)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-
-        public static int Sum(int[] collection, int value)
-        {
-            int result = 0;
-
-            for (int i = 0; i < collection.Length; i++)
-            {
-                result += collection[i];
-            }
-
-            return result;
-        }
-        public static int Sum(List<int> collection, int value)
-        {
-            int result = 0;
-
-            for (int i = 0; i < collection.Count; i++)
-            {
-                result += i;
-            }
-
-            return result;
-        }
-
-
-        public static Vehicle[] Take(Vehicle[] vehicles)
-        {
-            Vehicle[] tenMostEconomicCars = new Vehicle[10];
-            for (int i = 0; i < tenMostEconomicCars.Length; i++)
-            {
-                tenMostEconomicCars[i] = vehicles[i];
-            }
-
-            return tenMostEconomicCars;
-        }
-        public static Vehicle[] OrderBy(Vehicle[] vehicles)
-        {
-            for (int i = 0; i < vehicles.Length - 1; i++)
-            {
-                for (int j = i + 1; j < vehicles.Length; j++)
-                {
-                    if (vehicles[j].Combined > vehicles[i].Combined)
+                    if (comparerFunction(array[j], array[i]))
                     {
-                        Vehicle temp = vehicles[j];
-                        vehicles[j] = vehicles[i];
-                        vehicles[i] = temp;
+                        T temp = array[j];
+                        array[j] = array[i];
+                        array[i] = temp;
                     }
                 }
             }
 
-            return vehicles;
+            return array;
         }
-
-
-        public static Vehicle[] OrderBy(Vehicle[] vehicles, ComparerDelegateForVehiclesComparison comparerFunction)
+        public static List<T> OrderBy<T>(List<T> list, Func<T, T, bool> comparerFunction)
         {
-            for (int i = 0; i < vehicles.Length - 1; i++)
+            for (int i = 0; i < list.Count - 1; i++)
             {
-                for (int j = i + 1; j < vehicles.Length; j++)
+                for (int j = i + 1; j < list.Count; j++)
                 {
-                    if (comparerFunction(vehicles[j], vehicles[i]))
+                    if (comparerFunction(list[j], list[i]))
                     {
-                        Vehicle temp = vehicles[j];
-                        vehicles[j] = vehicles[i];
-                        vehicles[i] = temp;
+                        T temp = list[j];
+                        list[j] = list[i];
+                        list[i] = temp;
                     }
                 }
             }
 
-            return vehicles;
+            return list;
         }
 
 
-        public static Vehicle[] Select(string[] stringVehicles)
-        {
-            Vehicle[] vehicles = new Vehicle[stringVehicles.Length];
-            for (int i = 0; i < stringVehicles.Length; i++)
-            {
-                vehicles[i] = Vehicle.Parse(stringVehicles[i]);
-            }
-
-            return vehicles;
-        }
-        public static Vehicle[] Select(string[] stringVehicles, SelectorDelegateForVehicles transformerFunction)
-        {
-            Vehicle[] vehicles = new Vehicle[stringVehicles.Length];
-            for (int i = 0; i < stringVehicles.Length; i++)
-            {
-                vehicles[i] = transformerFunction(stringVehicles[i]);
-            }
-
-            return vehicles;
-        }
+        /*
 
 
-        public static int Max(List<int> intList)
-        {
-            int max = intList[0];
 
-            for (int i = 0; i < intList.Count; i++)
-            {
-                if (intList[i] > max)
-                {
-                    max = intList[i];
-                }
-            }
+public static int IndexOf(int[] collection, ComparerDelegateForInts comparerFunction)
+{
+for (int i = 0; i < collection.Length; i++)
+{
+ if (comparerFunction(collection[i]))
+ {
+     return i;
+ }
+}
 
-            return max;
-        }
-        public static int Max(int[] intAr)
-        {
-            int max = intAr[0];
+return -1;
+}
+public static int IndexOf<T>(T[] collection, T value)
+{
+for (int i = 0; i < collection.Length; i++)
+{
+ if (collection[i].Equals(value))
+ {
+     return i;
+ }
+}
 
-            for (int i = 0; i < intAr.Length; i++)
-            {
-                if (intAr[i] > max)
-                {
-                    max = intAr[i];
-                }
-            }
+return -1;
+}
+public static int IndexOf<T>(List<T> collection, T value)
+{
+for (int i = 0; i < collection.Count; i++)
+{
+ if (collection[i].Equals(value))
+ {
+     return i;
+ }
+}
 
-            return max;
-        }
-        public static int Min(List<int> intList)
-        {
-            int min = intList[0];
+return -1;
+}
+public static int IndexOf(List<int> collection, ComparerDelegateForInts comparerFunction)
+{
+for (int i = 0; i < collection.Count; i++)
+{
+ if (comparerFunction(collection[i]))
+ {
+     return i;
+ }
+}
 
-            for (int i = 0; i < intList.Count; i++)
-            {
-                if (intList[i] < min)
-                {
-                    min = intList[i];
-                }
-            }
+return -1;
+}
 
-            return min;
-        }
-        public static int Min(int[] intAr)
-        {
-            int min = intAr[0];
 
-            for (int i = 0; i < intAr.Length; i++)
-            {
-                if (intAr[i] < min)
-                {
-                    min = intAr[i];
-                }
-            }
+public static int LastIndexOf(int[] collection, int value)
+{
+for (int i = collection.Length - 1; i >= 0; i--)
+{
+ if (collection[i] == value)
+ {
+     return i;
+ }
+}
 
-            return min;
-        }
+return -1;
+}
+public static int LastIndexOf(List<int> collection, int value)
+{
+for (int i = collection.Count - 1; i >= 0; i--)
+{
+ if (collection[i] == value)
+ {
+     return i;
+ }
+}
 
-        public static bool Any(int[] intAr, int element)
-        {
-            for (int i = 0; i < intAr.Length; i++)
-            {
-                if (intAr[i] == element)
-                {
-                    return true;
-                }
-            }
+return -1;
+}
+public static int LastIndexOf(int[] collection, ComparerDelegateForInts compareFunction)
+{
+for (int i = collection.Length - 1; i >= 0; i--)
+{
+ if (compareFunction(collection[i]))
+ {
+     return i;
+ }
+}
 
-            return false;
-        }
-        public static bool All(int[] intAr, int element)
-        {
-            for (int i = 0; i < intAr.Length; i++)
-            {
-                if (intAr[i] != element)
-                {
-                    return false;
-                }
-            }
+return -1;
+}
+public static int LastIndexOf(List<int> collection, ComparerDelegateForInts compareFunction)
+{
+for (int i = collection.Count - 1; i >= 0; i--)
+{
+ if (compareFunction(collection[i]))
+ {
+     return i;
+ }
+}
 
-            return true;
-        }
-        public static bool Any(List<int> intList, int element)
-        {
-            for (int i = 0; i < intList.Count; i++)
-            {
-                if (intList[i] == element)
-                {
-                    return true;
-                }
-            }
+return -1;
+}
 
-            return false;
-        }
-        public static bool All(List<int> intList, int element)
-        {
-            for (int i = 0; i < intList.Count; i++)
-            {
-                if (intList[i] != element)
-                {
-                    return false;
-                }
-            }
 
-            return true;
-        }
+public static int Sum(int[] collection)
+{
+int result = 0;
 
-        public static int[] Reverse(int[] collection)
-        {
-            Stack<int> stack = new();
+for (int i = 0; i < collection.Length; i++)
+{
+ result += collection[i];
+}
 
-            for (int i = 0; i < collection.Length; i++)
-            {
-                stack.Push(collection[i]);
-            }
+return result;
+}
+public static int Sum(List<int> collection)
+{
+int result = 0;
 
-            return stack.ToArray();
-        }
-        public static List<int> Reverse(List<int> collection)
-        {
-            Stack<int> stack = new();
+for (int i = 0; i < collection.Count; i++)
+{
+ result += i;
+}
 
-            for (int i = 0; i < collection.Count; i++)
-            {
-                stack.Push(collection[i]);
-            }
+return result;
+}
 
-            return stack.ToList();
-        }
+
+public static Vehicle[] Take(Vehicle[] vehicles, int count)
+{
+Vehicle[] economicCars = new Vehicle[count];
+for (int i = 0; i < economicCars.Length; i++)
+{
+ economicCars[i] = vehicles[i];
+}
+
+return economicCars;
+}
+
+
+
+
+public static Vehicle[] Select(string[] stringVehicles)
+{
+Vehicle[] vehicles = new Vehicle[stringVehicles.Length];
+for (int i = 0; i < stringVehicles.Length; i++)
+{
+ vehicles[i] = Vehicle.Parse(stringVehicles[i]);
+}
+
+return vehicles;
+}
+public static Vehicle[] Select(string[] stringVehicles, SelectorDelegateForVehicles transformerFunction)
+{
+Vehicle[] vehicles = new Vehicle[stringVehicles.Length];
+for (int i = 0; i < stringVehicles.Length; i++)
+{
+ vehicles[i] = transformerFunction(stringVehicles[i]);
+}
+
+return vehicles;
+}
+
+public static int Max(List<int> intList)
+{
+int max = intList[0];
+
+for (int i = 0; i < intList.Count; i++)
+{
+ if (intList[i] > max)
+ {
+     max = intList[i];
+ }
+}
+
+return max;
+}
+public static int Max(int[] intAr)
+{
+int max = intAr[0];
+
+for (int i = 0; i < intAr.Length; i++)
+{
+ if (intAr[i] > max)
+ {
+     max = intAr[i];
+ }
+}
+
+return max;
+}
+public static int Min(List<int> intList)
+{
+int min = intList[0];
+
+for (int i = 0; i < intList.Count; i++)
+{
+ if (intList[i] < min)
+ {
+     min = intList[i];
+ }
+}
+
+return min;
+}
+public static int Min(int[] intAr)
+{
+int min = intAr[0];
+
+for (int i = 0; i < intAr.Length; i++)
+{
+ if (intAr[i] < min)
+ {
+     min = intAr[i];
+ }
+}
+
+return min;
+}
+
+
+public static bool Any(int[] intAr, ComparerDelegateForInts comparerFunctions)
+{
+for (int i = 0; i < intAr.Length; i++)
+{
+ if (comparerFunctions(intAr[i]))
+ {
+     return true;
+ }
+}
+
+return false;
+}
+public static bool Any(List<int> intList, ComparerDelegateForInts comparerFunctions)
+{
+for (int i = 0; i < intList.Count; i++)
+{
+ if (comparerFunctions(intList[i]))
+ {
+     return true;
+ }
+}
+
+return false;
+}
+public static bool Any(List<int> intList, int element)
+{
+for (int i = 0; i < intList.Count; i++)
+{
+ if (intList[i] == element)
+ {
+     return true;
+ }
+}
+
+return false;
+}
+
+
+public static bool All(int[] intAr, int element)
+{
+for (int i = 0; i < intAr.Length; i++)
+{
+ if (intAr[i] != element)
+ {
+     return false;
+ }
+}
+
+return true;
+}
+public static bool All(List<int> intList, int element)
+{
+for (int i = 0; i < intList.Count; i++)
+{
+ if (intList[i] != element)
+ {
+     return false;
+ }
+}
+
+return true;
+}
+public static bool All(List<int> intList, ComparerDelegateForInts comparerFunction)
+{
+for (int i = 0; i < intList.Count; i++)
+{
+ if (!comparerFunction(intList[i]))
+ {
+     return false;
+ }
+}
+
+return true;
+}
+public static bool All(int[] intAr, ComparerDelegateForInts comparerFunction)
+{
+for (int i = 0; i < intAr.Length; i++)
+{
+ if (!comparerFunction(intAr[i]))
+ {
+     return false;
+ }
+}
+
+return true;
+}
+
+
+public static int[] Reverse(int[] collection)
+{
+Stack<int> stack = new();
+
+for (int i = 0; i < collection.Length; i++)
+{
+ stack.Push(collection[i]);
+}
+
+return stack.ToArray();
+}
+public static List<int> Reverse(List<int> collection)
+{
+Stack<int> stack = new();
+
+for (int i = 0; i < collection.Count; i++)
+{
+ stack.Push(collection[i]);
+}
+
+return stack.ToList();
+}
+
+
+*/
+
 
         //TODO Union
         //TODO Intersect
