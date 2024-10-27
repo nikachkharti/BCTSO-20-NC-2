@@ -2,21 +2,6 @@
 
 namespace Algorithms
 {
-    //დელეგატი არის ტიპი რომელმაც იცის თუ როგორ მიინიჭოს ფუნქცია
-
-
-    //გვაქვს 3 ტიპის ჩაშენებული ჯენერიკ დელეგატი რომელსაც შეუძლია მიინიჭოს ნებისმიერი ფუნქცია ჩვენი სურვილის მიხედვით.
-
-    //Action ---> არის დელეგატი რომელიც იღებს ისეთ ფუნქციებს რომლის დასაბრუნებელი ტიპი არის void, მისაღებ ტიპებს ვუსაზღვრავთ ჩვენ
-    //Predicate ---> არის დელეგატი რომელიც იღებს ისეთ ფუნქციას რომლის დასაბრუნებელი ტიპი არის bool, მისაღებ ტიპებს ვუსაზღვრავთ ჩვენ
-    //Func ---> არის დელეგატი რომელსაც მისაღებ და დასაბრუნებელ ტიპებს ვუსაზღვრავთ ჩვენ
-
-
-    //public delegate bool ComparerDelegateForInts(int arg);
-    //public delegate bool ComparerDelegateForVehicles(Vehicle vehicle);
-    //public delegate Vehicle SelectorDelegateForVehicles(string arg);
-    //public delegate bool ComparerDelegateForVehiclesComparison<T>(T arg1, T arg2);
-
     public static class CustomAlgorithm
     {
         public static T FirstOrDefault<T>(T[] collection, Predicate<T> predicate)
@@ -152,6 +137,16 @@ namespace Algorithms
             return list;
         }
 
+        public static TResult[] Select<TSource, TResult>(TSource[] stringVehicles, Func<TSource, TResult> selector)
+        {
+            TResult[] vehicles = new TResult[stringVehicles.Length];
+            for (int i = 0; i < stringVehicles.Length; i++)
+            {
+                vehicles[i] = selector(stringVehicles[i]);
+            }
+
+            return vehicles;
+        }
 
         /*
 
@@ -295,26 +290,7 @@ return economicCars;
 
 
 
-public static Vehicle[] Select(string[] stringVehicles)
-{
-Vehicle[] vehicles = new Vehicle[stringVehicles.Length];
-for (int i = 0; i < stringVehicles.Length; i++)
-{
- vehicles[i] = Vehicle.Parse(stringVehicles[i]);
-}
 
-return vehicles;
-}
-public static Vehicle[] Select(string[] stringVehicles, SelectorDelegateForVehicles transformerFunction)
-{
-Vehicle[] vehicles = new Vehicle[stringVehicles.Length];
-for (int i = 0; i < stringVehicles.Length; i++)
-{
- vehicles[i] = transformerFunction(stringVehicles[i]);
-}
-
-return vehicles;
-}
 
 public static int Max(List<int> intList)
 {
