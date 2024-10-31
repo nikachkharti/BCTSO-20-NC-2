@@ -8,10 +8,10 @@ namespace Algorithms
         static void Main(string[] args)
         {
             //var carsData = File.ReadAllLines("C:\\Users\\User\\Desktop\\IT STEP\\BCTSO-20-NC-2\\BCTSO-20-NC-2\\Lecture11\\vehicles.csv");
-            //var cars = CustomAlgorithm.Select(carsData, Vehicle.Parse).ToList();
+            //var cars = CustomAlgorithm.Select(carsData, T.Parse).ToList();
             //var bmws = CustomAlgorithm.Where(cars, vehicle => vehicle.Make.Trim().ToLower() == "BMW".Trim().ToLower());
 
-            //var sortedCars = CustomAlgorithm.OrderBy(cars, (Vehicle v1, Vehicle v2) => v1.Combined > v2.Combined);
+            //var sortedCars = CustomAlgorithm.OrderBy(cars, (T v1, T v2) => v1.Combined > v2.Combined);
 
 
 

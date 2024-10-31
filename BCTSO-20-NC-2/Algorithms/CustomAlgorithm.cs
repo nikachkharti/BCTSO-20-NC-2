@@ -148,321 +148,217 @@ namespace Algorithms
             return vehicles;
         }
 
-        /*
+        public static int IndexOf<T>(T[] collection, Func<T, bool> predicate)
+        {
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (predicate(collection[i]))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+        public static int IndexOf<T>(List<T> collection, Func<T, bool> predicate)
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (predicate(collection[i]))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public static int LastIndexOf<T>(T[] collection, Func<T, bool> predicate)
+        {
+            for (int i = collection.Length - 1; i >= 0; i--)
+            {
+                if (predicate(collection[i]))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+        public static int LastIndexOf<T>(List<T> collection, Func<T, bool> predicate)
+        {
+            for (int i = collection.Count - 1; i >= 0; i--)
+            {
+                if (predicate(collection[i]))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public static int Sum(int[] collection)
+        {
+            int result = 0;
+
+            for (int i = 0; i < collection.Length; i++)
+            {
+                result += collection[i];
+            }
+
+            return result;
+        }
+        public static int Sum(List<int> collection)
+        {
+            int result = 0;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                result += i;
+            }
+
+            return result;
+        }
+
+        public static int Sum(int[] collection, Func<int, bool> predicate)
+        {
+            int result = 0;
+
+            for (int i = 0; i < collection.Length; i++)
+            {
+                if (predicate(collection[i]))
+                {
+                    result += collection[i];
+                }
+            }
+
+            return result;
+        }
+        public static int Sum(List<int> collection, Func<int, bool> predicate)
+        {
+            int result = 0;
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (predicate(collection[i]))
+                {
+                    result += collection[i];
+                }
+            }
+
+            return result;
+        }
+
+        public static T Max<T>(List<T> intList) where T : IComparable<T>
+        {
+            T max = intList[0];
+
+            for (int i = 0; i < intList.Count; i++)
+            {
+                if (intList[i].CompareTo(max) > 0)
+                {
+                    max = intList[i];
+                }
+            }
+
+            return max;
+        }
+        public static T Min<T>(List<T> intList) where T : IComparable<T>
+        {
+            T min = intList[0];
+
+            for (int i = 0; i < intList.Count; i++)
+            {
+                if (intList[i].CompareTo(min) < 0)
+                {
+                    min = intList[i];
+                }
+            }
+
+            return min;
+        }
 
 
+        //public static T Max<T>(List<T> intList, Func<T, T, bool> selector)
+        //{
+        //    T max = intList[0];
 
-public static int IndexOf(int[] collection, ComparerDelegateForInts comparerFunction)
-{
-for (int i = 0; i < collection.Length; i++)
-{
- if (comparerFunction(collection[i]))
- {
-     return i;
- }
-}
+        //    for (int i = 0; i < intList.Count; i++)
+        //    {
+        //        if (selector(intList[i], max))
+        //        {
+        //            max = intList[i];
+        //        }
+        //    }
 
-return -1;
-}
-public static int IndexOf<T>(T[] collection, T value)
-{
-for (int i = 0; i < collection.Length; i++)
-{
- if (collection[i].Equals(value))
- {
-     return i;
- }
-}
-
-return -1;
-}
-public static int IndexOf<T>(List<T> collection, T value)
-{
-for (int i = 0; i < collection.Count; i++)
-{
- if (collection[i].Equals(value))
- {
-     return i;
- }
-}
-
-return -1;
-}
-public static int IndexOf(List<int> collection, ComparerDelegateForInts comparerFunction)
-{
-for (int i = 0; i < collection.Count; i++)
-{
- if (comparerFunction(collection[i]))
- {
-     return i;
- }
-}
-
-return -1;
-}
+        //    return max;
+        //}
 
 
-public static int LastIndexOf(int[] collection, int value)
-{
-for (int i = collection.Length - 1; i >= 0; i--)
-{
- if (collection[i] == value)
- {
-     return i;
- }
-}
+        public static T[] Take<T>(T[] collection, int count)
+        {
+            T[] result = new T[count];
 
-return -1;
-}
-public static int LastIndexOf(List<int> collection, int value)
-{
-for (int i = collection.Count - 1; i >= 0; i--)
-{
- if (collection[i] == value)
- {
-     return i;
- }
-}
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = collection[i];
+            }
 
-return -1;
-}
-public static int LastIndexOf(int[] collection, ComparerDelegateForInts compareFunction)
-{
-for (int i = collection.Length - 1; i >= 0; i--)
-{
- if (compareFunction(collection[i]))
- {
-     return i;
- }
-}
+            return result;
+        }
+        public static List<T> Take<T>(List<T> collection, int count)
+        {
+            List<T> result = new();
 
-return -1;
-}
-public static int LastIndexOf(List<int> collection, ComparerDelegateForInts compareFunction)
-{
-for (int i = collection.Count - 1; i >= 0; i--)
-{
- if (compareFunction(collection[i]))
- {
-     return i;
- }
-}
+            for (int i = 0; i < result.Count; i++)
+            {
+                result.Add(collection[i]);
+            }
 
-return -1;
-}
+            return result;
+        }
 
 
-public static int Sum(int[] collection)
-{
-int result = 0;
+        public static bool Any<T>(List<T> collection, Func<T, bool> predicate)
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (predicate(collection[i]))
+                {
+                    return true;
+                }
+            }
 
-for (int i = 0; i < collection.Length; i++)
-{
- result += collection[i];
-}
+            return false;
+        }
+        public static bool All<T>(List<T> collection, Func<T, bool> predicate)
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (!predicate(collection[i]))
+                {
+                    return false;
+                }
+            }
 
-return result;
-}
-public static int Sum(List<int> collection)
-{
-int result = 0;
-
-for (int i = 0; i < collection.Count; i++)
-{
- result += i;
-}
-
-return result;
-}
-
-
-public static Vehicle[] Take(Vehicle[] vehicles, int count)
-{
-Vehicle[] economicCars = new Vehicle[count];
-for (int i = 0; i < economicCars.Length; i++)
-{
- economicCars[i] = vehicles[i];
-}
-
-return economicCars;
-}
+            return true;
+        }
 
 
+        public static List<T> Reverse<T>(List<T> collection)
+        {
+            Stack<T> stack = new();
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                stack.Push(collection[i]);
+            }
+
+            return stack.ToList();
+        }
 
 
-
-
-public static int Max(List<int> intList)
-{
-int max = intList[0];
-
-for (int i = 0; i < intList.Count; i++)
-{
- if (intList[i] > max)
- {
-     max = intList[i];
- }
-}
-
-return max;
-}
-public static int Max(int[] intAr)
-{
-int max = intAr[0];
-
-for (int i = 0; i < intAr.Length; i++)
-{
- if (intAr[i] > max)
- {
-     max = intAr[i];
- }
-}
-
-return max;
-}
-public static int Min(List<int> intList)
-{
-int min = intList[0];
-
-for (int i = 0; i < intList.Count; i++)
-{
- if (intList[i] < min)
- {
-     min = intList[i];
- }
-}
-
-return min;
-}
-public static int Min(int[] intAr)
-{
-int min = intAr[0];
-
-for (int i = 0; i < intAr.Length; i++)
-{
- if (intAr[i] < min)
- {
-     min = intAr[i];
- }
-}
-
-return min;
-}
-
-
-public static bool Any(int[] intAr, ComparerDelegateForInts comparerFunctions)
-{
-for (int i = 0; i < intAr.Length; i++)
-{
- if (comparerFunctions(intAr[i]))
- {
-     return true;
- }
-}
-
-return false;
-}
-public static bool Any(List<int> intList, ComparerDelegateForInts comparerFunctions)
-{
-for (int i = 0; i < intList.Count; i++)
-{
- if (comparerFunctions(intList[i]))
- {
-     return true;
- }
-}
-
-return false;
-}
-public static bool Any(List<int> intList, int element)
-{
-for (int i = 0; i < intList.Count; i++)
-{
- if (intList[i] == element)
- {
-     return true;
- }
-}
-
-return false;
-}
-
-
-public static bool All(int[] intAr, int element)
-{
-for (int i = 0; i < intAr.Length; i++)
-{
- if (intAr[i] != element)
- {
-     return false;
- }
-}
-
-return true;
-}
-public static bool All(List<int> intList, int element)
-{
-for (int i = 0; i < intList.Count; i++)
-{
- if (intList[i] != element)
- {
-     return false;
- }
-}
-
-return true;
-}
-public static bool All(List<int> intList, ComparerDelegateForInts comparerFunction)
-{
-for (int i = 0; i < intList.Count; i++)
-{
- if (!comparerFunction(intList[i]))
- {
-     return false;
- }
-}
-
-return true;
-}
-public static bool All(int[] intAr, ComparerDelegateForInts comparerFunction)
-{
-for (int i = 0; i < intAr.Length; i++)
-{
- if (!comparerFunction(intAr[i]))
- {
-     return false;
- }
-}
-
-return true;
-}
-
-
-public static int[] Reverse(int[] collection)
-{
-Stack<int> stack = new();
-
-for (int i = 0; i < collection.Length; i++)
-{
- stack.Push(collection[i]);
-}
-
-return stack.ToArray();
-}
-public static List<int> Reverse(List<int> collection)
-{
-Stack<int> stack = new();
-
-for (int i = 0; i < collection.Count; i++)
-{
- stack.Push(collection[i]);
-}
-
-return stack.ToList();
-}
-
-
-*/
 
 
         //TODO Union

@@ -11,11 +11,11 @@ namespace Lecture11
 
             //string[] stringVehicles = File.ReadAllLines(@"../../../vehicles.csv");
 
-            //Vehicle[] vehicles = CustomAlgorithm.Select(stringVehicles);
-            //Vehicle[] sortedVehicles = CustomAlgorithm.OrderBy(vehicles);
-            //Vehicle[] tenMostEconmicCars = CustomAlgorithm.Take(vehicles);
+            //T[] vehicles = CustomAlgorithm.Select(stringVehicles);
+            //T[] sortedVehicles = CustomAlgorithm.OrderBy(vehicles);
+            //T[] tenMostEconmicCars = CustomAlgorithm.Take(vehicles);
 
-            //List<Vehicle> mercedeses = CustomAlgorithm.Where(vehicles, "mercedes");
+            //List<T> mercedeses = CustomAlgorithm.Where(vehicles, "mercedes");
 
         }
 

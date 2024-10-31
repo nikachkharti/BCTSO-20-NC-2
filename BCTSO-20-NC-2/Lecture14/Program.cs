@@ -17,7 +17,7 @@ namespace Lecture14
         static void Main(string[] args)
         {
             //string[] stringVehicles = File.ReadAllLines("C:\\Users\\User\\Desktop\\IT STEP\\BCTSO-20-NC-2\\BCTSO-20-NC-2\\Lecture11\\vehicles.csv");
-            //var res = CustomAlgorithm.Select(stringVehicles, Vehicle.Parse);
+            //var res = CustomAlgorithm.Select(stringVehicles, T.Parse);
 
             //string[] numbersAsText = { "10", "20", "2", "3" };
             //var res2 = CustomAlgorithm.Select(numbersAsText, int.Parse);

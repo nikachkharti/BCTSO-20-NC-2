@@ -1,6 +1,6 @@
 ﻿namespace Algorithms.Models
 {
-    public class Vehicle
+    public class T
     {
         public string Make { get; set; }
         public string Model { get; set; }
@@ -12,7 +12,7 @@
         public byte Combined { get; set; }
         public byte Highway { get; set; }
 
-        public static Vehicle Parse(string value)
+        public static T Parse(string value)
         {
             string[] csvValue = value.Split(',');
 
@@ -21,7 +21,7 @@
                 throw new ArgumentException("Incorrect argument passed");
             }
 
-            Vehicle result = new()
+            T result = new()
             {
                 Make = csvValue[0],
                 Model = csvValue[1],
