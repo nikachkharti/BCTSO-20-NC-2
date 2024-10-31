@@ -4,84 +4,52 @@ namespace Algorithms
 {
     public static class CustomAlgorithm
     {
-        public static T FirstOrDefault<T>(T[] collection, Predicate<T> predicate)
+        public static T FirstOrDefault<T>(IEnumerable<T> collection, Predicate<T> predicate)
         {
-            for (int i = 0; i < collection.Length; i++)
+            foreach (var item in collection)
             {
-                if (predicate(collection[i]))
+                if (predicate(item))
                 {
-                    return collection[i];
+                    return item;
                 }
             }
 
             return default;
         }
-        public static T FirstOrDefault<T>(List<T> collection, Predicate<T> predicate)
+        public static IEnumerable<T> NikasForeach<T>(IEnumerable<T> sources)
         {
-            for (int i = 0; i < collection.Count; i++)
+            var sourceEnumerator = sources.GetEnumerator();
+
+            while (sourceEnumerator.MoveNext())
             {
-                if (predicate(collection[i]))
-                {
-                    return collection[i];
-                }
+                yield return sourceEnumerator.Current;
             }
-
-            return default;
         }
-
-        public static T LastOrDefault<T>(List<T> collection, Func<T, bool> predicate)
+        public static T LastOrDefault<T>(IEnumerable<T> source, Func<T, bool> predicate)
         {
-            for (int i = collection.Count - 1; i >= 0; i--)
+            T result = default;
+
+            foreach (var item in source)
             {
-                if (predicate(collection[i]))
+                if (predicate(item))
                 {
-                    return collection[i];
-                }
-            }
-
-            return default;
-        }
-        public static T LastOrDefault<T>(T[] collection, Func<T, bool> predicate)
-        {
-            for (int i = collection.Length - 1; i >= 0; i--)
-            {
-                if (predicate(collection[i]))
-                {
-                    return collection[i];
-                }
-            }
-
-            return default;
-        }
-
-        public static List<T> Where<T>(List<T> collection, Func<T, bool> predicate)
-        {
-            List<T> result = new();
-
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (predicate(collection[i]))
-                {
-                    result.Add(collection[i]);
+                    result = item;
                 }
             }
 
             return result;
         }
-        public static T[] Where<T>(T[] collection, Func<T, bool> predicate)
+        public static IEnumerable<T> Where<T>(IEnumerable<T> source, Func<T, bool> predicate)
         {
-            List<T> result = new();
-
-            for (int i = 0; i < collection.Length; i++)
+            foreach (var item in source)
             {
-                if (predicate(collection[i]))
+                if (predicate(item))
                 {
-                    result.Add(collection[i]);
+                    yield return item;
                 }
             }
-
-            return result.ToArray();
         }
+
 
         //public static T[] OrderBy<T>(T[] list) where T : IComparable<T>
         //{
@@ -101,25 +69,7 @@ namespace Algorithms
         //    return list;
         //}
 
-
-        public static T[] OrderBy<T>(T[] array, Func<T, T, bool> comparerFunction)
-        {
-            for (int i = 0; i < array.Length - 1; i++)
-            {
-                for (int j = i + 1; j < array.Length; j++)
-                {
-                    if (comparerFunction(array[j], array[i]))
-                    {
-                        T temp = array[j];
-                        array[j] = array[i];
-                        array[i] = temp;
-                    }
-                }
-            }
-
-            return array;
-        }
-        public static List<T> OrderBy<T>(List<T> list, Func<T, T, bool> comparerFunction)
+        public static IList<T> OrderBy<T>(IList<T> list, Func<T, T, bool> comparerFunction)
         {
             for (int i = 0; i < list.Count - 1; i++)
             {
@@ -136,17 +86,14 @@ namespace Algorithms
 
             return list;
         }
-
-        public static TResult[] Select<TSource, TResult>(TSource[] stringVehicles, Func<TSource, TResult> selector)
+        public static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
-            TResult[] vehicles = new TResult[stringVehicles.Length];
-            for (int i = 0; i < stringVehicles.Length; i++)
+            foreach (var item in source)
             {
-                vehicles[i] = selector(stringVehicles[i]);
+                yield return selector(item);
             }
-
-            return vehicles;
         }
+
 
         public static int IndexOf<T>(T[] collection, Func<T, bool> predicate)
         {
