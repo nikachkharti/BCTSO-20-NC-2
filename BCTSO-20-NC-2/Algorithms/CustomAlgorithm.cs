@@ -4,9 +4,9 @@ namespace Algorithms
 {
     public static class CustomAlgorithm
     {
-        public static T FirstOrDefault<T>(IEnumerable<T> collection, Predicate<T> predicate)
+        public static T FirstOrDefault<T>(IEnumerable<T> source, Func<T, bool> predicate)
         {
-            foreach (var item in collection)
+            foreach (var item in source)
             {
                 if (predicate(item))
                 {
@@ -15,15 +15,6 @@ namespace Algorithms
             }
 
             return default;
-        }
-        public static IEnumerable<T> NikasForeach<T>(IEnumerable<T> sources)
-        {
-            var sourceEnumerator = sources.GetEnumerator();
-
-            while (sourceEnumerator.MoveNext())
-            {
-                yield return sourceEnumerator.Current;
-            }
         }
         public static T LastOrDefault<T>(IEnumerable<T> source, Func<T, bool> predicate)
         {
@@ -41,7 +32,7 @@ namespace Algorithms
         }
         public static IEnumerable<T> Where<T>(IEnumerable<T> source, Func<T, bool> predicate)
         {
-            foreach (var item in source)
+            foreach (T item in source)
             {
                 if (predicate(item))
                 {
@@ -49,42 +40,47 @@ namespace Algorithms
                 }
             }
         }
-
-
-        //public static T[] OrderBy<T>(T[] list) where T : IComparable<T>
-        //{
-        //    for (int i = 0; i < list.Length - 1; i++)
-        //    {
-        //        for (int j = i + 1; j < list.Length; j++)
-        //        {
-        //            if (list[j].CompareTo(list[i]) == -1)
-        //            {
-        //                T temp = list[j];
-        //                list[j] = list[i];
-        //                list[i] = temp;
-        //            }
-        //        }
-        //    }
-
-        //    return list;
-        //}
-
-        public static IList<T> OrderBy<T>(IList<T> list, Func<T, T, bool> comparerFunction)
+        static IEnumerable<T> MyForeach<T>(IEnumerable<T> source)
         {
-            for (int i = 0; i < list.Count - 1; i++)
+            var enumerator = source.GetEnumerator();
+
+            while (enumerator.MoveNext())
             {
-                for (int j = i + 1; j < list.Count; j++)
+                yield return enumerator.Current;
+            }
+        }
+        public static int IndexOf<T>(IEnumerable<T> source, Predicate<T> predicate)
+        {
+            int i = 0;
+
+            foreach (var item in source)
+            {
+                if (predicate(item))
                 {
-                    if (comparerFunction(list[j], list[i]))
-                    {
-                        T temp = list[j];
-                        list[j] = list[i];
-                        list[i] = temp;
-                    }
+                    return i;
                 }
+
+                i++;
             }
 
-            return list;
+            return -1;
+        }
+        public static int LastIndexOf<T>(IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            int i = default;
+            int result = -1;
+
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    result = i;
+                }
+
+                i++;
+            }
+
+            return result;
         }
         public static IEnumerable<TResult> Select<TSource, TResult>(IEnumerable<TSource> source, Func<TSource, TResult> selector)
         {
@@ -92,186 +88,110 @@ namespace Algorithms
             {
                 yield return selector(item);
             }
+
+            //TResult[] result = new TResult[source.Length];
+
+            //for (int i = 0; i < source.Length; i++)
+            //{
+            //    result[i] = selector(source[i]);
+            //}
+
+            //return result;
         }
-
-
-        public static int IndexOf<T>(T[] collection, Func<T, bool> predicate)
+        public static IList<T> OrderBy<T>(IList<T> result, Func<T, T, bool> compareFunction)
         {
-            for (int i = 0; i < collection.Length; i++)
+            for (int i = 0; i < result.Count - 1; i++)
             {
-                if (predicate(collection[i]))
+                for (int j = i + 1; j < result.Count; j++)
                 {
-                    return i;
+                    if (compareFunction(result[j], result[i]))
+                    {
+                        T temp = result[j];
+                        result[j] = result[i];
+                        result[i] = temp;
+                    }
                 }
             }
 
-            return -1;
+            return result;
         }
-        public static int IndexOf<T>(List<T> collection, Func<T, bool> predicate)
-        {
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (predicate(collection[i]))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        public static int LastIndexOf<T>(T[] collection, Func<T, bool> predicate)
-        {
-            for (int i = collection.Length - 1; i >= 0; i--)
-            {
-                if (predicate(collection[i]))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-        public static int LastIndexOf<T>(List<T> collection, Func<T, bool> predicate)
-        {
-            for (int i = collection.Count - 1; i >= 0; i--)
-            {
-                if (predicate(collection[i]))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        public static int Sum(int[] collection)
+        public static int Sum(IEnumerable<int> source)
         {
             int result = 0;
 
-            for (int i = 0; i < collection.Length; i++)
+            foreach (var item in source)
             {
-                result += collection[i];
+                result += item;
             }
 
             return result;
         }
-        public static int Sum(List<int> collection)
+        public static int Sum(IEnumerable<int> source, Func<int, bool> predicate)
         {
             int result = 0;
 
-            for (int i = 0; i < collection.Count; i++)
+            foreach (var item in source)
             {
-                result += i;
-            }
-
-            return result;
-        }
-
-        public static int Sum(int[] collection, Func<int, bool> predicate)
-        {
-            int result = 0;
-
-            for (int i = 0; i < collection.Length; i++)
-            {
-                if (predicate(collection[i]))
+                if (predicate(item))
                 {
-                    result += collection[i];
+                    result += item;
                 }
             }
 
             return result;
         }
-        public static int Sum(List<int> collection, Func<int, bool> predicate)
+        public static IEnumerable<T> Distinct<T>(IEnumerable<T> source)
         {
-            int result = 0;
+            HashSet<T> set = new();
 
-            for (int i = 0; i < collection.Count; i++)
+            foreach (var item in source)
             {
-                if (predicate(collection[i]))
+                set.Add(item);
+            }
+
+            return set;
+        }
+        public static IEnumerable<T> Distinct<T>(IEnumerable<T> source, IEqualityComparer<T> comparer)
+        {
+            HashSet<T> set = new(comparer);
+
+            foreach (var item in source)
+            {
+                set.Add(item);
+            }
+
+            return set;
+        }
+        public static IEnumerable<T> Reverse<T>(IEnumerable<T> source)
+        {
+            Stack<T> stack = new();
+
+            foreach (var item in source)
+            {
+                stack.Push(item);
+            }
+
+            return stack;
+        }
+        public static IEnumerable<T> Reverse<T>(IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            Stack<T> stack = new();
+
+            foreach (var item in source)
+            {
+                if (predicate(item))
                 {
-                    result += collection[i];
+                    stack.Push(item);
                 }
             }
 
-            return result;
+            return stack;
         }
-
-        public static T Max<T>(List<T> intList) where T : IComparable<T>
+        public static bool Any<T>(IEnumerable<T> source, Func<T, bool> predicate)
         {
-            T max = intList[0];
-
-            for (int i = 0; i < intList.Count; i++)
+            foreach (var item in source)
             {
-                if (intList[i].CompareTo(max) > 0)
-                {
-                    max = intList[i];
-                }
-            }
-
-            return max;
-        }
-        public static T Min<T>(List<T> intList) where T : IComparable<T>
-        {
-            T min = intList[0];
-
-            for (int i = 0; i < intList.Count; i++)
-            {
-                if (intList[i].CompareTo(min) < 0)
-                {
-                    min = intList[i];
-                }
-            }
-
-            return min;
-        }
-
-
-        //public static T Max<T>(List<T> intList, Func<T, T, bool> selector)
-        //{
-        //    T max = intList[0];
-
-        //    for (int i = 0; i < intList.Count; i++)
-        //    {
-        //        if (selector(intList[i], max))
-        //        {
-        //            max = intList[i];
-        //        }
-        //    }
-
-        //    return max;
-        //}
-
-
-        public static T[] Take<T>(T[] collection, int count)
-        {
-            T[] result = new T[count];
-
-            for (int i = 0; i < result.Length; i++)
-            {
-                result[i] = collection[i];
-            }
-
-            return result;
-        }
-        public static List<T> Take<T>(List<T> collection, int count)
-        {
-            List<T> result = new();
-
-            for (int i = 0; i < result.Count; i++)
-            {
-                result.Add(collection[i]);
-            }
-
-            return result;
-        }
-
-
-        public static bool Any<T>(List<T> collection, Func<T, bool> predicate)
-        {
-            for (int i = 0; i < collection.Count; i++)
-            {
-                if (predicate(collection[i]))
+                if (predicate(item))
                 {
                     return true;
                 }
@@ -279,11 +199,11 @@ namespace Algorithms
 
             return false;
         }
-        public static bool All<T>(List<T> collection, Func<T, bool> predicate)
+        public static bool All<T>(IEnumerable<T> source, Func<T, bool> predicate)
         {
-            for (int i = 0; i < collection.Count; i++)
+            foreach (var item in source)
             {
-                if (!predicate(collection[i]))
+                if (!predicate(item))
                 {
                     return false;
                 }
@@ -291,25 +211,50 @@ namespace Algorithms
 
             return true;
         }
-
-
-        public static List<T> Reverse<T>(List<T> collection)
+        public static T Max<T>(IEnumerable<T> source) where T : IComparable<T>
         {
-            Stack<T> stack = new();
+            using var enumerator = source.GetEnumerator();
 
-            for (int i = 0; i < collection.Count; i++)
+            if (!enumerator.MoveNext())
             {
-                stack.Push(collection[i]);
+                throw new ArgumentException("Source cannot be empty", nameof(source));
             }
 
-            return stack.ToList();
+            T max = enumerator.Current;
+
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.CompareTo(max) > 0)
+                {
+                    max = enumerator.Current;
+                }
+            }
+
+            return max;
         }
+        public static T Min<T>(IEnumerable<T> source) where T : IComparable<T>
+        {
+            using var enumerator = source.GetEnumerator();
 
+            if (!enumerator.MoveNext())
+            {
+                throw new ArgumentException("Source cannot be empty", nameof(source));
+            }
 
+            T min = enumerator.Current;
 
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.CompareTo(min) < 0)
+                {
+                    min = enumerator.Current;
+                }
+            }
+
+            return min;
+        }
 
         //TODO Union
         //TODO Intersect
-
     }
 }
