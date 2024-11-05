@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAlgorithm", "CustomAl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture16", "Lecture16\Lecture16.csproj", "{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAlgorithm.Tests", "CustomAlgorithm.Tests\CustomAlgorithm.Tests.csproj", "{4EBE6E02-C1CF-42EC-A3D5-E6F1989A4CCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EBE6E02-C1CF-42EC-A3D5-E6F1989A4CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EBE6E02-C1CF-42EC-A3D5-E6F1989A4CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EBE6E02-C1CF-42EC-A3D5-E6F1989A4CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EBE6E02-C1CF-42EC-A3D5-E6F1989A4CCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

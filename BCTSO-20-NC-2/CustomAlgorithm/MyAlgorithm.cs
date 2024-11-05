@@ -4,6 +4,11 @@
     {
         public static T MyFirstOrDefault<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
+            if (predicate is null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
             foreach (var item in source)
             {
                 if (predicate(item))
