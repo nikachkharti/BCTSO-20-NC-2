@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lecture15", "Lecture15\Lect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomAlgorithm", "CustomAlgorithm\CustomAlgorithm.csproj", "{5385BE37-597E-4317-8BA8-6C40AB27D950}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture16", "Lecture16\Lecture16.csproj", "{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{5385BE37-597E-4317-8BA8-6C40AB27D950}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5385BE37-597E-4317-8BA8-6C40AB27D950}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5385BE37-597E-4317-8BA8-6C40AB27D950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2676CEB4-06EC-426A-B333-A2A3FD17F3AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,7 +15,7 @@ namespace Lecture15
             intStringDic[1] = "erti";
             intStringDic[2] = "erti";
 
-            var x = MyAlgorithm.Select(intList, x => x.ToString());
+            var x = MyAlgorithm.MySelect(intList, x => x.ToString());
 
         }
 
