@@ -1,8 +1,6 @@
-﻿using Algorithms.Models;
-
-namespace Algorithms
+﻿namespace CustomAlgorithm
 {
-    public static class CustomAlgorithm
+    public static class MyAlgorithm
     {
         public static T FirstOrDefault<T>(IEnumerable<T> source, Func<T, bool> predicate)
         {

@@ -1,6 +1,4 @@
-﻿using Algorithms.Models;
-using Algorithms;
-
+﻿using CustomAlgorithm;
 
 namespace Lecture11
 {

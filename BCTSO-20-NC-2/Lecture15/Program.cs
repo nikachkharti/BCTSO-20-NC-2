@@ -1,6 +1,4 @@
-﻿using Algorithms;
-using System.Collections;
-using System.Runtime.CompilerServices;
+﻿using CustomAlgorithm;
 
 namespace Lecture15
 {
@@ -17,7 +15,7 @@ namespace Lecture15
             intStringDic[1] = "erti";
             intStringDic[2] = "erti";
 
-            var x = CustomAlgorithm.Select(intList, x => x.ToString());
+            var x = MyAlgorithm.Select(intList, x => x.ToString());
 
         }
 

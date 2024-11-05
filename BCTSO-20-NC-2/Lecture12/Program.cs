@@ -1,9 +1,4 @@
-﻿using Algorithms;
-using Algorithms.Models;
-using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
-
-namespace Lecture12
+﻿namespace Lecture12
 {
     internal class Program
     {
