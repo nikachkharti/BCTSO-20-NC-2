@@ -2,34 +2,6 @@
 
 namespace CustomAlgorithm.Tests
 {
-    class StudentEquilityComparer : IEqualityComparer<Student>
-    {
-        public bool Equals(Student x, Student y)
-        {
-            return x.Name.Trim().ToLower() == y.Name.Trim().ToLower() && x.Age == y.Age;
-        }
-
-        public int GetHashCode([DisallowNull] Student obj)
-        {
-            return obj.Name.Length;
-        }
-    }
-
-    class Student
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
-
-        public Student(string name, int age)
-        {
-            Name = name;
-            Age = age;
-        }
-
-        public override bool Equals(object obj) => new StudentEquilityComparer().Equals(this, (Student)obj);
-        public override int GetHashCode() => new StudentEquilityComparer().GetHashCode(this);
-    }
-
     public class My_First_Or_Default_Should
     {
         [Fact]
