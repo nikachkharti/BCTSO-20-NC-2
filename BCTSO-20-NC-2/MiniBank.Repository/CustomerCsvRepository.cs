@@ -19,17 +19,39 @@ namespace MiniBank.Repository
 
         public void Create(Customer customer)
         {
-            throw new NotImplementedException();
+            customer.Id = _customers.Any() ? _customers.Max(customer => customer.Id) + 1 : 1;
+            _customers.Add(customer);
+            SaveData();
         }
 
         public void Update(Customer customer)
         {
-            throw new NotImplementedException();
+            var index = _customers.FindIndex(c => c.Id == customer.Id);
+            if (index >= 0)
+            {
+                _customers[index] = customer;
+                SaveData();
+            }
         }
 
-        public Customer Delete(int id)
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var customer = _customers.FirstOrDefault(c => c.Id == id);
+
+            if (customer != null)
+            {
+                _customers.Remove(customer);
+                SaveData();
+            }
+        }
+
+        private void SaveData()
+        {
+            var lines = new List<string>() { "Id,Name,IdentityNumber,PhoneNumber,Email,Type" };
+
+            lines.AddRange(_customers.Select(customer => $"{customer.Id},{customer.Name},{customer.IdentityNumber},{customer.PhoneNumber},{customer.Email},{customer.Type}"));
+
+            File.WriteAllLines(_filePath, lines);
         }
 
         private List<Customer> LoadData()
