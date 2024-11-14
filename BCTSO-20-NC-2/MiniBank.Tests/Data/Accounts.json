@@ -34,17 +34,17 @@
   {
     "Id": 5,
     "Iban": "GE90SB5621487456385159",
-    "Currency": "USD",
+    "Currency": "EUR",
     "Balance": 35974.00,
     "CustomerId": 2,
     "Name": ""
   },
   {
     "Id": 6,
-    "Iban": "GE90SB5621487456385159",
-    "Currency": "EUR",
-    "Balance": 500.00,
-    "CustomerId": 2,
+    "Iban": "GE94SB5621487456325151",
+    "Currency": "GEL",
+    "Balance": 0.00,
+    "CustomerId": 1,
     "Name": ""
   }
 ]
