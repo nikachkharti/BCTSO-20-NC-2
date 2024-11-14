@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations>
+  <Operation>
+    <Id>1</Id>
+    <AccountId>1</AccountId>
+    <CustomerId>1</CustomerId>
+    <Type>Credit</Type>
+    <Currency>GBP</Currency>
+    <Amount>100</Amount>
+    <HappendAt>2024-11-14T21:37:42.9271399+04:00</HappendAt>
+  </Operation>
+</Operations>
