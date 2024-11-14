@@ -7,6 +7,14 @@ namespace MiniBank.Repository
     {
         private readonly string _filePath;
         private List<Operation> _operations;
+        private AccountJsonRepository _accountJsonRepository;
+
+        public OperationXmlRepository(string filePath, AccountJsonRepository accountJsonRepository)
+        {
+            _filePath = filePath;
+            _operations = LoadData();
+            _accountJsonRepository = accountJsonRepository;
+        }
 
         public OperationXmlRepository(string filePath)
         {
@@ -26,7 +34,16 @@ namespace MiniBank.Repository
             _operations.Add(operation);
             SaveData();
 
-            //TODO შეიცვალოს Accounts.json ის მონაცემები
+            var accountToCredit = _accountJsonRepository.GetAccount(operation.AccountId);
+
+            if (accountToCredit == null || accountToCredit.Currency != operation.Currency)
+            {
+                throw new InvalidOperationException("Account don't exists or credit operation currency is different from account");
+            }
+
+            accountToCredit.Balance += operation.Amount;
+            _accountJsonRepository.Update(accountToCredit);
+            _accountJsonRepository.SaveData();
         }
 
         public void Debit(Operation operation)
@@ -35,7 +52,16 @@ namespace MiniBank.Repository
             _operations.Add(operation);
             SaveData();
 
-            //TODO შეიცვალოს Accounts.json ის მონაცემები
+            var accountToCredit = _accountJsonRepository.GetAccount(operation.AccountId);
+
+            if (accountToCredit == null || accountToCredit.Currency != operation.Currency)
+            {
+                throw new InvalidOperationException("Account don't exists or credit operation currency is different from account");
+            }
+
+            accountToCredit.Balance -= operation.Amount;
+            _accountJsonRepository.Update(accountToCredit);
+            _accountJsonRepository.SaveData();
         }
 
 

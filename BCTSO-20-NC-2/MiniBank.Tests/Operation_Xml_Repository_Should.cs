@@ -6,6 +6,7 @@ namespace MiniBank.Tests
     public class Operation_Xml_Repository_Should
     {
         private readonly string _testFilePath = @"../../../../MiniBank.Tests/Data/Operations.xml";
+        private readonly string _accountJsonFilePath = @"../../../../MiniBank.Tests/Data/Accounts.json";
 
         [Fact]
         public void Get_Multiple_Operations()
@@ -53,7 +54,8 @@ namespace MiniBank.Tests
         public void Perform_Credit_Operation()
         {
             //Arrange
-            var repository = new OperationXmlRepository(_testFilePath);
+            AccountJsonRepository accountJsonRepository = new(_accountJsonFilePath);
+            var repository = new OperationXmlRepository(_testFilePath, accountJsonRepository);
             var expected = 3;
 
             var newOperation = new Operation()
@@ -61,7 +63,7 @@ namespace MiniBank.Tests
                 AccountId = 1,
                 CustomerId = 1,
                 Amount = 100,
-                Currency = "GBP",
+                Currency = "GEL",
                 HappendAt = DateTime.Now,
                 OperationType = OperationType.Credit
             };
@@ -80,7 +82,8 @@ namespace MiniBank.Tests
         public void Perform_Debit_Operation()
         {
             //Arrange
-            var repository = new OperationXmlRepository(_testFilePath);
+            AccountJsonRepository accountJsonRepository = new(_accountJsonFilePath);
+            var repository = new OperationXmlRepository(_testFilePath, accountJsonRepository);
             var expected = 3;
 
             var newOperation = new Operation()
@@ -88,7 +91,7 @@ namespace MiniBank.Tests
                 AccountId = 1,
                 CustomerId = 1,
                 Amount = 100,
-                Currency = "GBP",
+                Currency = "GEL",
                 HappendAt = DateTime.Now,
                 OperationType = OperationType.Debit
             };
