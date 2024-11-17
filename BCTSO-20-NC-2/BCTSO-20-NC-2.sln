@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBank.Tests", "MiniBank.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture18", "Lecture18\Lecture18.csproj", "{C089D763-CDCD-401B-963D-8B2406CA45C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lecture19", "Lecture19\Lecture19.csproj", "{2C559B61-762E-465D-AFDC-01C4D8B85ECA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,10 @@ Global
 		{C089D763-CDCD-401B-963D-8B2406CA45C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C089D763-CDCD-401B-963D-8B2406CA45C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C089D763-CDCD-401B-963D-8B2406CA45C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C559B61-762E-465D-AFDC-01C4D8B85ECA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C559B61-762E-465D-AFDC-01C4D8B85ECA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C559B61-762E-465D-AFDC-01C4D8B85ECA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C559B61-762E-465D-AFDC-01C4D8B85ECA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
