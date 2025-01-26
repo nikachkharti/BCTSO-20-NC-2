@@ -22,20 +22,6 @@ namespace MiniBank.Tests
             //Assert.Equal(expected, actual.Count);
         }
 
-        [Fact]
-        public void Get_Multiple_Operations_Of_Customer()
-        {
-            //Arrange
-            var repository = new OperationXmlRepository(_testFilePath);
-            var expected = 2;
-
-            //Act
-            var actual = repository.GetCustomerOperations(1);
-
-            //Assert
-            //Assert.Equal(expected, actual.Count);
-        }
-
 
         [Fact]
         public void Get_Empty_List_If_Data_File_Do_Not_Exists()
@@ -61,7 +47,6 @@ namespace MiniBank.Tests
             var newOperation = new Operation()
             {
                 AccountId = 1,
-                CustomerId = 1,
                 Amount = 100,
                 Currency = "GEL",
                 HappendAt = DateTime.Now,
@@ -89,7 +74,6 @@ namespace MiniBank.Tests
             var newOperation = new Operation()
             {
                 AccountId = 1,
-                CustomerId = 1,
                 Amount = 100,
                 Currency = "GEL",
                 HappendAt = DateTime.Now,

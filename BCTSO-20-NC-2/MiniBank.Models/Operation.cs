@@ -9,17 +9,15 @@ namespace MiniBank.Models
         public string Currency { get; set; }
         public decimal Amount { get; set; }
         public int AccountId { get; set; }
-        public int CustomerId { get; set; }
         public DateTime HappendAt { get; set; } = DateTime.Now;
     }
 
     public class OperationEquilityComparer : IEqualityComparer<Operation>
     {
-        public bool Equals(Operation x, Operation y) => 
+        public bool Equals(Operation x, Operation y) =>
             x.Id == y.Id &&
             x.OperationType == y.OperationType &&
             x.HappendAt == y.HappendAt &&
-            x.CustomerId == y.CustomerId &&
             x.AccountId == y.AccountId &&
             x.Amount == y.Amount;
 
