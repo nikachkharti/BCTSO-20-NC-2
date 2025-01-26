@@ -3,10 +3,10 @@ using MiniBank.Repository;
 
 namespace MiniBank.Tests
 {
-    public class Sql_Client_Repository_Should
+    public class Sql_Client_Customer_Repository_Should
     {
         SqlClientCustomerRepository _sqlClientCustomerRepository;
-        public Sql_Client_Repository_Should()
+        public Sql_Client_Customer_Repository_Should()
         {
             _sqlClientCustomerRepository = new();
         }
