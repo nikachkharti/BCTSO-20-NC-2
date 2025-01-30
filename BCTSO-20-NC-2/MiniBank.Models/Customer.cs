@@ -9,7 +9,7 @@ namespace MiniBank.Models
         public string IdentityNumber { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public CustomerType Type { get; set; }
+        public CustomerType CustomerType { get; set; }
     }
 
     public class CustomerEquilityComparer : IEqualityComparer<Customer>
@@ -19,7 +19,7 @@ namespace MiniBank.Models
                 x.IdentityNumber.Trim() == y.IdentityNumber.Trim() &&
                 x.PhoneNumber.Trim() == y.PhoneNumber.Trim() &&
                 x.Email.Trim().ToLower() == y.Email.Trim().ToLower() &&
-                x.Type == y.Type;
+                x.CustomerType == y.CustomerType;
 
         public int GetHashCode([DisallowNull] Customer obj) => obj.Name.Length;
     }

@@ -21,7 +21,7 @@ namespace MiniBank.Tests
         [Fact]
         public async Task Get_Customer()
         {
-            int customerId = 1;
+            int customerId = 3;
             var result = await _sqlClientCustomerRepository.GetCustomer(customerId);
         }
 
@@ -35,7 +35,7 @@ namespace MiniBank.Tests
                 IdentityNumber = "56007853214",
                 PhoneNumber = "551447788",
                 Email = "Beso.Gurgenidze@gmail.com",
-                Type = CustomerType.Phyisical
+                CustomerType = CustomerType.Phyisical
             };
 
             await _sqlClientCustomerRepository.Create(customer);
@@ -47,12 +47,12 @@ namespace MiniBank.Tests
         {
             Customer customer = new()
             {
-                Id = 2,
+                Id = 3,
                 Name = "Jimsher Gurgenidze",
                 IdentityNumber = "56007853214",
                 PhoneNumber = "551447788",
                 Email = "Jemal.Gurgenidze@gmail.com",
-                Type = CustomerType.Phyisical
+                CustomerType = CustomerType.Phyisical
             };
 
             await _sqlClientCustomerRepository.Update(customer);

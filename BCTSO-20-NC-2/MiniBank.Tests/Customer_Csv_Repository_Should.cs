@@ -45,7 +45,7 @@ namespace MiniBank.Tests
                 IdentityNumber = "31024852345",
                 PhoneNumber = "555337681",
                 Email = "Iakob.Qobalia@gmail.com",
-                Type = Models.CustomerType.Phyisical
+                CustomerType = Models.CustomerType.Phyisical
             };
 
             //Act
@@ -69,7 +69,7 @@ namespace MiniBank.Tests
                 IdentityNumber = "01024087459",
                 Email = "nika@gmail.com",
                 PhoneNumber = "555337681",
-                Type = Models.CustomerType.Phyisical
+                CustomerType = Models.CustomerType.Phyisical
             };
 
             //Act
@@ -93,7 +93,7 @@ namespace MiniBank.Tests
                 IdentityNumber = "01024087459",
                 Email = "Zaal.Chkhartishvili@gmail.com",
                 PhoneNumber = "555337681",
-                Type = Models.CustomerType.Phyisical
+                CustomerType = Models.CustomerType.Phyisical
             };
 
             //Act

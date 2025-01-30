@@ -42,7 +42,7 @@ namespace MiniBank.Repository
                 {"@identityNumber",customer.IdentityNumber },
                 {"@phoneNumber",customer.PhoneNumber },
                 {"@email",customer.Email },
-                {"@customerType",customer.Type }
+                {"@customerType",customer.CustomerType }
             };
 
             var result = await _repository.Execute(commandText, CommandType.StoredProcedure, parameters);
@@ -51,25 +51,24 @@ namespace MiniBank.Repository
 
 
 
-        public async Task Update(Customer customer)
+        public async Task<int> Update(Customer customer)
         {
-            using (SqlConnection connection = new(_connectionString))
+            string commandText = "spUpdateCustomer";
+            var parameters = new Dictionary<string, object>()
             {
-                using (SqlCommand command = new("spUpdateCustomer", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("customerId", customer.Id);
-                    command.Parameters.AddWithValue("name", customer.Name);
-                    command.Parameters.AddWithValue("identityNumber", customer.IdentityNumber);
-                    command.Parameters.AddWithValue("phoneNumber", customer.PhoneNumber);
-                    command.Parameters.AddWithValue("email", customer.Email);
-                    command.Parameters.AddWithValue("customerType", customer.Type);
+                {"@customerId",customer.Id },
+                {"@name",customer.Name },
+                {"@identityNumber",customer.IdentityNumber },
+                {"@phoneNumber",customer.PhoneNumber },
+                {"@email",customer.Email },
+                {"@customerType",customer.CustomerType }
+            };
 
-                    await connection.OpenAsync();
-                    await command.ExecuteNonQueryAsync();
-                }
-            }
+            var result = await _repository.Execute(commandText, CommandType.StoredProcedure, parameters);
+            return result;
         }
+
+
         public async Task Delete(int id)
         {
             using (SqlConnection connection = new(_connectionString))
