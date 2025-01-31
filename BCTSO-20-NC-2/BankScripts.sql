@@ -3,6 +3,8 @@
 
 --USE MiniBankBCTSO20N
 --GO
+
+
 --CREATE TABLE Customers
 --(
 --	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -33,7 +35,6 @@
 --	HappendAt DATETIME NOT NULL,
 --	AccountId INT FOREIGN KEY REFERENCES Accounts(Id)
 --)
-
 
 --CREATE PROCEDURE spGetAllCustomers
 --AS

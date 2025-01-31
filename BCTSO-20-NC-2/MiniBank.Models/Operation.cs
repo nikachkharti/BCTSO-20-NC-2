@@ -14,8 +14,7 @@ namespace MiniBank.Models
 
     public class OperationEquilityComparer : IEqualityComparer<Operation>
     {
-        public bool Equals(Operation x, Operation y) =>
-            x.Id == y.Id &&
+        public bool Equals(Operation x, Operation y) => x.Id == y.Id &&
             x.OperationType == y.OperationType &&
             x.HappendAt == y.HappendAt &&
             x.AccountId == y.AccountId &&

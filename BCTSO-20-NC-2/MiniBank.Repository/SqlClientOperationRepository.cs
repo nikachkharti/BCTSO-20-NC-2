@@ -6,36 +6,8 @@ namespace MiniBank.Repository
     public class SqlClientOperationRepository
     {
         private const string _connectionString = "Server=DESKTOP-SCSHELD\\SQLEXPRESS;Database=MiniBankBCTSO20N;Trusted_Connection=true;TrustServerCertificate=true";
-        private SqlClientAccountRepository sqlClientAccountRepository = new();
+        SqlClientAccountRepository sqlClietnAccountRepository = new();
 
-        public async Task Insert(int accountId, decimal amount)
-        {
-            if (amount <= 0 || accountId <= 0)
-            {
-                throw new ArgumentException("Invalid arguments passed");
-            }
-
-            var account = await sqlClientAccountRepository.GetAccount(accountId);
-
-            if (account is null)
-            {
-                throw new NullReferenceException("Account not found");
-            }
-
-            account.Balance += amount;
-
-            await sqlClientAccountRepository.Update(account);
-
-
-            await Create(new Operation()
-            {
-                OperationType = OperationType.Credit,
-                Currency = account.Currency,
-                Amount = amount,
-                HappendAt = DateTime.Now,
-                AccountId = account.Id
-            });
-        }
         public async Task Withdraw(int accountId, decimal amount)
         {
             if (amount <= 0 || accountId <= 0)
@@ -43,7 +15,7 @@ namespace MiniBank.Repository
                 throw new ArgumentException("Invalid arguments passed");
             }
 
-            var account = await sqlClientAccountRepository.GetAccount(accountId);
+            var account = await sqlClietnAccountRepository.GetAccount(accountId);
 
             if (account is null)
             {
@@ -59,7 +31,7 @@ namespace MiniBank.Repository
                 throw new ArgumentException("Insufficient funds to withdraw");
             }
 
-            await sqlClientAccountRepository.Update(account);
+            await sqlClietnAccountRepository.Update(account);
             await Create(new Operation()
             {
                 OperationType = OperationType.Credit,
@@ -69,6 +41,36 @@ namespace MiniBank.Repository
                 AccountId = account.Id
             });
         }
+
+        public async Task Insert(int accountId, decimal amount)
+        {
+            if (amount <= 0 || accountId <= 0)
+            {
+                throw new ArgumentException("Invalid arguments passed");
+            }
+
+            var account = await sqlClietnAccountRepository.GetAccount(accountId);
+
+            if (account is null)
+            {
+                throw new NullReferenceException("Account not found");
+            }
+
+            account.Balance += amount;
+
+            await sqlClietnAccountRepository.Update(account);
+
+
+            await Create(new Operation()
+            {
+                OperationType = OperationType.Credit,
+                Currency = account.Currency,
+                Amount = amount,
+                HappendAt = DateTime.Now,
+                AccountId = account.Id
+            });
+        }
+
         public async Task Transfer(int sourceAccountId, int destinationAccountId, decimal amount)
         {
             if (amount <= 0 || sourceAccountId <= 0 || destinationAccountId <= 0)
@@ -76,8 +78,8 @@ namespace MiniBank.Repository
                 throw new ArgumentException("Invalid arguments passed");
             }
 
-            var sourceAccount = await sqlClientAccountRepository.GetAccount(sourceAccountId);
-            var destinationAccount = await sqlClientAccountRepository.GetAccount(destinationAccountId);
+            var sourceAccount = await sqlClietnAccountRepository.GetAccount(sourceAccountId);
+            var destinationAccount = await sqlClietnAccountRepository.GetAccount(destinationAccountId);
 
             if (sourceAccount is null || destinationAccount is null)
             {
@@ -94,8 +96,8 @@ namespace MiniBank.Repository
                 throw new ArgumentException("Insufficient funds to withdraw");
             }
 
-            await sqlClientAccountRepository.Update(sourceAccount);
-            await sqlClientAccountRepository.Update(destinationAccount);
+            await sqlClietnAccountRepository.Update(sourceAccount);
+            await sqlClietnAccountRepository.Update(destinationAccount);
 
             await Create(new Operation()
             {
@@ -116,6 +118,8 @@ namespace MiniBank.Repository
             });
         }
 
+
+        //ახალი ჩანაწერი Operation ცხრილში.
         public async Task Create(Operation operation)
         {
             string commandText = "spCreateOperation";

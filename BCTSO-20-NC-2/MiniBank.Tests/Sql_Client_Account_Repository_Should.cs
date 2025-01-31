@@ -16,7 +16,7 @@ namespace MiniBank.Tests
         [Fact]
         public async Task Get_Single_Account()
         {
-            var result = await _sqlClientAccountRepository.GetAccount(1);
+            var result = await _sqlClientAccountRepository.GetAccount(4);
         }
 
 
@@ -25,7 +25,7 @@ namespace MiniBank.Tests
         {
             Account account = new()
             {
-                Iban = "GEL4567894512345678910",
+                Iban = "GEL4567894512345678911",
                 Balance = 10,
                 Currency = "GEL",
                 CustomerId = 1,
@@ -41,12 +41,11 @@ namespace MiniBank.Tests
         {
             Account account = new()
             {
-                Iban = "GEL4567894512345678945",
+                Iban = "GEL4567894512345678910",
                 Balance = 100,
                 Currency = "GEL",
-                CustomerId = 1,
-                Name = "Nothing",
-                Id = 1
+                CustomerId = 3,
+                Name = "Salary"
             };
 
             await _sqlClientAccountRepository.Update(account);
@@ -56,7 +55,7 @@ namespace MiniBank.Tests
         [Fact]
         public async Task Delete_Account()
         {
-            await _sqlClientAccountRepository.Delete(4);
+            await _sqlClientAccountRepository.Delete(3);
         }
     }
 }

@@ -45,14 +45,14 @@ namespace MiniBank.Tests
                 IdentityNumber = "31024852345",
                 PhoneNumber = "555337681",
                 Email = "Iakob.Qobalia@gmail.com",
-                CustomerType = Models.CustomerType.Phyisical
+                Type = Models.CustomerType.Phyisical
             };
 
             //Act
             var actual = customerRepository.GetCustomer(1);
 
             //Assert
-            Assert.Equal(expected, actual, new CustomerEquilityComparer());
+            Assert.Equal(expected, actual, new CustomerEqulityComparer());
         }
 
 
@@ -69,7 +69,7 @@ namespace MiniBank.Tests
                 IdentityNumber = "01024087459",
                 Email = "nika@gmail.com",
                 PhoneNumber = "555337681",
-                CustomerType = Models.CustomerType.Phyisical
+                Type = Models.CustomerType.Phyisical
             };
 
             //Act
@@ -93,7 +93,7 @@ namespace MiniBank.Tests
                 IdentityNumber = "01024087459",
                 Email = "Zaal.Chkhartishvili@gmail.com",
                 PhoneNumber = "555337681",
-                CustomerType = Models.CustomerType.Phyisical
+                Type = Models.CustomerType.Phyisical
             };
 
             //Act
@@ -101,7 +101,7 @@ namespace MiniBank.Tests
 
             //Assert
             var actual = repository.GetCustomer(3);
-            Assert.Equal(updatedCustomer, actual, new CustomerEquilityComparer());
+            Assert.Equal(updatedCustomer, actual, new CustomerEqulityComparer());
         }
 
         [Fact]

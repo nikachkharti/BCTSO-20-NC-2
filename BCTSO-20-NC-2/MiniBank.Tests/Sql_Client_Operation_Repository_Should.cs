@@ -15,12 +15,11 @@ namespace MiniBank.Tests
             await _sqlClientOperationRepository.Insert(accountId, withdrawAmount);
         }
 
-
         [Fact]
         public async Task Withdraw_Amount()
         {
             const decimal withdrawAmount = 2;
-            const int accountId = 1;
+            const int accountId = 4;
 
             await _sqlClientOperationRepository.Withdraw(accountId, withdrawAmount);
         }
@@ -30,7 +29,7 @@ namespace MiniBank.Tests
         {
             const decimal transferAmount = 2;
             const int sourceAccountId = 1;
-            const int destinationAccountId = 2;
+            const int destinationAccountId = 4;
 
             await _sqlClientOperationRepository.Transfer(sourceAccountId, destinationAccountId, transferAmount);
         }

@@ -5,11 +5,7 @@ namespace MiniBank.Tests
 {
     public class Sql_Client_Customer_Repository_Should
     {
-        SqlClientCustomerRepository _sqlClientCustomerRepository;
-        public Sql_Client_Customer_Repository_Should()
-        {
-            _sqlClientCustomerRepository = new();
-        }
+        private SqlClientCustomerRepository _sqlClientCustomerRepository = new();
 
         [Fact]
         public async Task Get_All_Customers()
@@ -17,53 +13,47 @@ namespace MiniBank.Tests
             var result = await _sqlClientCustomerRepository.GetCustomers();
         }
 
-
         [Fact]
-        public async Task Get_Customer()
+        public async Task Get_Single_Customer()
         {
-            int customerId = 3;
-            var result = await _sqlClientCustomerRepository.GetCustomer(customerId);
+            var result = await _sqlClientCustomerRepository.GetCustomer(2);
         }
 
-
         [Fact]
-        public async Task Add_Customer()
+        public async Task Add_Customers()
         {
-            Customer customer = new()
+            Customer newCustomer = new()
             {
-                Name = "Beso Gurgenidze",
-                IdentityNumber = "56007853214",
-                PhoneNumber = "551447788",
-                Email = "Beso.Gurgenidze@gmail.com",
-                CustomerType = CustomerType.Phyisical
+                Email = "Davit@gmail.com",
+                IdentityNumber = "01024087596",
+                PhoneNumber = "558779966",
+                Name = "Davit Davitashvili",
+                Type = CustomerType.Phyisical
             };
 
-            await _sqlClientCustomerRepository.Create(customer);
+            await _sqlClientCustomerRepository.Create(newCustomer);
         }
-
 
         [Fact]
-        public async Task Update_Customer()
+        public async Task Update_Customers()
         {
-            Customer customer = new()
+            Customer updatedCustomer = new()
             {
-                Id = 3,
-                Name = "Jimsher Gurgenidze",
-                IdentityNumber = "56007853214",
-                PhoneNumber = "551447788",
-                Email = "Jemal.Gurgenidze@gmail.com",
-                CustomerType = CustomerType.Phyisical
+                Id = 4,
+                Email = "Davit@gmail.com",
+                IdentityNumber = "12356987415",
+                PhoneNumber = "559887744",
+                Name = "Davit Otarashvili",
+                Type = CustomerType.Phyisical
             };
 
-            await _sqlClientCustomerRepository.Update(customer);
+            await _sqlClientCustomerRepository.Update(updatedCustomer);
         }
-
 
         [Fact]
         public async Task Delete_Customer()
         {
-            var customerToDelete = 2;
-            await _sqlClientCustomerRepository.Delete(customerToDelete);
+            await _sqlClientCustomerRepository.Delete(1);
         }
     }
 }

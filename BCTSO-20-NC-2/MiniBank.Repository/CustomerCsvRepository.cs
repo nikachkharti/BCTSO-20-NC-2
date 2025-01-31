@@ -53,7 +53,7 @@ namespace MiniBank.Repository
 
                 foreach (var customer in _customers)
                 {
-                    writer.WriteLine($"{customer.Id},{customer.Name},{customer.IdentityNumber},{customer.PhoneNumber},{customer.Email},{customer.CustomerType}");
+                    writer.WriteLine($"{customer.Id},{customer.Name},{customer.IdentityNumber},{customer.PhoneNumber},{customer.Email},{customer.Type}");
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace MiniBank.Repository
                         IdentityNumber = parts[2],
                         PhoneNumber = parts[3],
                         Email = parts[4],
-                        CustomerType = Enum.Parse<Models.CustomerType>(parts[5])
+                        Type = Enum.Parse<Models.CustomerType>(parts[5])
                     };
 
                     customers.Add(customer);
