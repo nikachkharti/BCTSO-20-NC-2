@@ -1,8 +1,9 @@
 ﻿using MiniBank.Models;
+using MiniBank.Repository.Interfaces;
 
 namespace MiniBank.Repository
 {
-    public class CustomerCsvRepository
+    public class CustomerCsvRepository : ICustomerRepository
     {
         private readonly string _filePath;
         private List<Customer> _customers;
@@ -11,6 +12,11 @@ namespace MiniBank.Repository
         {
             _filePath = filePath;
             _customers = LoadData();
+        }
+
+        public CustomerCsvRepository()
+        {
+            
         }
 
         public List<Customer> GetCustomers() => _customers;
@@ -90,6 +96,31 @@ namespace MiniBank.Repository
             }
 
             return customers;
+        }
+
+        public Task<List<Customer>> GetCustomersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Customer> GetCustomerAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> CreateAsync(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> UpdateAsync(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> DeleteAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         //public void SaveData()

@@ -5,7 +5,7 @@ using MiniBank.Repository.Interfaces;
 
 namespace MiniBank.Repository
 {
-    public class SqlClientCustomerRepository
+    public class SqlClientCustomerRepository : ICustomerRepository
     {
         private const string _connectionString = "Server=DESKTOP-SCSHELD\\SQLEXPRESS;Database=MiniBankBCTSO20N;Trusted_Connection=true;TrustServerCertificate=true";
         private readonly IRepository<Customer> _repository;
@@ -15,14 +15,14 @@ namespace MiniBank.Repository
             _repository = new Repositroy<Customer>(_connectionString);
         }
 
-        public async Task<List<Customer>> GetCustomers()
+        public async Task<List<Customer>> GetCustomersAsync()
         {
             string commandText = "spGetAllCustomers";
             var result = await _repository.GetAll(commandText, null, CommandType.StoredProcedure);
 
             return result.ToList();
         }
-        public async Task<Customer> GetCustomer(int id)
+        public async Task<Customer> GetCustomerAsync(int id)
         {
             string commandText = "spGetSingleCustomer";
             var parameters = new Dictionary<string, object>()
@@ -33,7 +33,7 @@ namespace MiniBank.Repository
             var result = await _repository.Get(commandText, parameters, CommandType.StoredProcedure);
             return result;
         }
-        public async Task<int> Create(Customer customer)
+        public async Task<int> CreateAsync(Customer customer)
         {
             string commandText = "spCreateCustomer";
 
@@ -49,7 +49,7 @@ namespace MiniBank.Repository
             var result = await _repository.Execute(commandText, parameters, CommandType.StoredProcedure);
             return result;
         }
-        public async Task<int> Update(Customer customer)
+        public async Task<int> UpdateAsync(Customer customer)
         {
             string commandText = "spUpdateCustomer";
             var parameters = new Dictionary<string, object>()
@@ -65,7 +65,7 @@ namespace MiniBank.Repository
             var result = await _repository.Execute(commandText, parameters, CommandType.StoredProcedure);
             return result;
         }
-        public async Task<int> Delete(int id)
+        public async Task<int> DeleteAsync(int id)
         {
             string commandText = "spDeleteCustomer";
             var parameters = new Dictionary<string, object>()
@@ -75,6 +75,31 @@ namespace MiniBank.Repository
 
             var result = await _repository.Execute(commandText, parameters, CommandType.StoredProcedure);
             return result;
+        }
+
+        public List<Customer> GetCustomers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Customer GetCustomer(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Create(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
