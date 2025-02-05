@@ -9,7 +9,6 @@ internal class Program
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
-        builder.Services.AddScoped<ICustomerRepository, CustomerCsvRepository>();
 
         var app = builder.Build();
 

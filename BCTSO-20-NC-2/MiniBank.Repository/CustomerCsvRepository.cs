@@ -3,7 +3,7 @@ using MiniBank.Repository.Interfaces;
 
 namespace MiniBank.Repository
 {
-    public class CustomerCsvRepository : ICustomerRepository
+    public class CustomerCsvRepository
     {
         private readonly string _filePath;
         private List<Customer> _customers;
@@ -16,7 +16,7 @@ namespace MiniBank.Repository
 
         public CustomerCsvRepository()
         {
-            
+
         }
 
         public List<Customer> GetCustomers() => _customers;
