@@ -5,7 +5,8 @@ namespace MiniBank.API.Controllers
     public class Student
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
+        public int SubjectId { get; set; }
     }
 
     [ApiController]
@@ -14,78 +15,133 @@ namespace MiniBank.API.Controllers
     {
         private static List<Student> _students = new()
         {
-            new Student() {Id = 1, Name = "Mariam Iniashvili"},
-            new Student() {Id = 2, Name = "Saba Beridze"},
-            new Student() {Id = 3, Name = "Giorgi Menteshashvili"},
+            new Student() { Id = 1, Name = "Mariam Iniashvili", SubjectId = 1},
+            new Student() { Id = 2, Name = "Giorgi Menteshashvili", SubjectId = 2},
+            new Student() { Id = 3, Name = "Saba Beridze", SubjectId = 2}
         };
 
 
         [HttpGet]
-        public List<Student> GetAllStudents()
+        public IActionResult GetAllStudents()
         {
-            return _students;
+            if (_students.Any())
+            {
+                return Ok(_students);
+            }
+
+            return NotFound();
         }
 
 
         [HttpGet("{id}")]
-        public Student GetSingleStudent([FromRoute] int id)
+        public IActionResult GetSingleStudent([FromRoute] int id)
         {
-            return _students.FirstOrDefault(x => x.Id == id);
-        }
+            if (id <= 0)
+            {
+                return BadRequest($"Argument id can't be a zero or negative number");
+            }
 
-        [HttpPost]
-        public List<Student> AddStudent([FromBody] Student student)
-        {
-            var newId = _students.Max(x => x.Id) + 1;
-            student.Id = newId;
+            var result = _students.FirstOrDefault(x => x.Id == id);
 
-            _students.Add(student);
-            return _students;
+            if (result is null)
+            {
+                return NotFound($"Student with id {id} not found");
+            }
+
+            return Ok(result);
         }
 
 
         [HttpDelete("{id}")]
-        public List<Student> DeleteStudent([FromRoute] int id)
+        public IActionResult DeleteStudent([FromRoute] int id)
         {
-            var studentToRemove = _students.FirstOrDefault(x => x.Id == id);
-            _students.Remove(studentToRemove);
+            if (id <= 0)
+            {
+                return BadRequest($"Argument id can't be a zero or negative number");
+            }
 
-            return _students;
+            var result = _students.FirstOrDefault(x => x.Id == id);
+
+            if (result is null)
+            {
+                return NotFound($"Student with id {id} not found");
+            }
+
+            _students.Remove(result);
+            return NoContent();
         }
+
+
+        [HttpPost]
+        public IActionResult AddStudent([FromBody] Student model)
+        {
+            if (model is null)
+            {
+                return BadRequest($"Argument can't be a null value");
+            }
+
+            var newId = _students.Max(x => x.Id) + 1;
+            model.Id = newId;
+
+            _students.Add(model);
+
+            return Created();
+        }
+
 
         [HttpPut]
-        public List<Student> UpdateStudent([FromBody] Student model)
+        public IActionResult UpdateStudent([FromBody] Student model)
         {
+            if (model is null)
+            {
+                return BadRequest($"Argument can't be a null value");
+            }
+
             var studentToUpdate = _students.FirstOrDefault(x => x.Id == model.Id);
+
+            if (studentToUpdate is null)
+            {
+                return NotFound($"No student found to update");
+            }
+
+            _students.Remove(studentToUpdate);
+
             studentToUpdate.Name = model.Name;
 
-            return _students;
+            _students.Add(model);
+
+            return Ok(studentToUpdate);
         }
 
 
-        //[HttpGet("student")]
-        //public Student GetSingleStudent([FromQuery] int id)
+        //[HttpGet("{id}")]
+        //public Student GetSingleStudent([FromRoute] int id)
         //{
-        //    return _students.FirstOrDefault(x => x.Id == id);
+        //    var result = _students.FirstOrDefault(x => x.Id == id);
+        //    return result;
         //}
 
 
-        //[HttpGet("student")]
-        //public Student GetSingleStudent([FromBody] Student model)
+        //[HttpGet]
+        //public Student GetSingleStudent([FromBody] int id)
         //{
-        //    return _students.FirstOrDefault(x => x.Id == model.Id);
+        //    var result = _students.FirstOrDefault(x => x.Id == id);
+        //    return result;
         //}
 
-        //[HttpGet("student")]
-        //public Student GetSingleStudent([FromForm] Student model)
+
+        //[HttpGet]
+        //public Student GetSingleStudent([FromForm] int id)
         //{
-        //    return _students.FirstOrDefault(x => x.Id == model.Id);
+        //    var result = _students.FirstOrDefault(x => x.Id == id);
+        //    return result;
         //}
 
-        //[HttpGet("student")]
-        //public Student GetSingleStudent([FromHeader] Student model)
+        //[HttpGet]
+        //public Student GetSingleStudent([FromHeader] int id)
         //{
-        //    return _students.FirstOrDefault(x => x.Id == model.Id);
+        //    var result = _students.FirstOrDefault(x => x.Id == id);
+        //    return result;
         //}
     }
 }
