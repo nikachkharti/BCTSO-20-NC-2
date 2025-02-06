@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBank.API", "MiniBank.AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.API", "Example.API\Example.API.csproj", "{40093F42-B538-4E73-A4E0-228D0B7E76CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBank.Services", "MiniBank.Services\MiniBank.Services.csproj", "{A7F9A54A-7900-48F1-8715-5C5EB2BB1808}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,10 @@ Global
 		{40093F42-B538-4E73-A4E0-228D0B7E76CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40093F42-B538-4E73-A4E0-228D0B7E76CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40093F42-B538-4E73-A4E0-228D0B7E76CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7F9A54A-7900-48F1-8715-5C5EB2BB1808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F9A54A-7900-48F1-8715-5C5EB2BB1808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F9A54A-7900-48F1-8715-5C5EB2BB1808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F9A54A-7900-48F1-8715-5C5EB2BB1808}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,6 +188,7 @@ Global
 		{5D8D6D07-7181-422C-B559-ADDD172471E1} = {7B6E76A7-F30A-4CF1-9795-3CC9CCA62B3E}
 		{0ADD97FD-BBFD-40DE-81CE-DB8F71A325AF} = {7B6E76A7-F30A-4CF1-9795-3CC9CCA62B3E}
 		{A0F6FF27-358F-4E6B-802C-25BB4E01236F} = {7B6E76A7-F30A-4CF1-9795-3CC9CCA62B3E}
+		{A7F9A54A-7900-48F1-8715-5C5EB2BB1808} = {7B6E76A7-F30A-4CF1-9795-3CC9CCA62B3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F65238EA-4053-4CE1-ADD2-BFFA93F107D2}
