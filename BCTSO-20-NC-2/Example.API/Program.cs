@@ -1,4 +1,7 @@
 ﻿
+using Example.API.Services;
+using Example.API.Services.Interfaces;
+
 namespace Example.API
 {
     public class Program

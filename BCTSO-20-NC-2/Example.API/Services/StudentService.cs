@@ -1,6 +1,7 @@
 ﻿using Example.API.Models;
+using Example.API.Services.Interfaces;
 
-namespace Example.API
+namespace Example.API.Services
 {
     public class StudentService : IStudentService
     {

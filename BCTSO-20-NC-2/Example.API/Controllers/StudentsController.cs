@@ -1,4 +1,5 @@
 ﻿using Example.API.Models;
+using Example.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Example.API.Controllers
