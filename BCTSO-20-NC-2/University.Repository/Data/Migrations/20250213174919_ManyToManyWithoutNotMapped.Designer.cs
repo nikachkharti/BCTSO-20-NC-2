@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using University.Repository.Data;
 
@@ -11,9 +12,11 @@ using University.Repository.Data;
 namespace University.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250213174919_ManyToManyWithoutNotMapped")]
+    partial class ManyToManyWithoutNotMapped
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,29 +52,6 @@ namespace University.Repository.Migrations
                         .IsUnique();
 
                     b.ToTable("Addresses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Tbilisi",
-                            Street = "Test str #1",
-                            StudentId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Batumi",
-                            Street = "Test str #2",
-                            StudentId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "Kutaisi",
-                            Street = "Test str #3",
-                            StudentId = 3
-                        });
                 });
 
             modelBuilder.Entity("University.Models.Entities.Course", b =>
@@ -95,26 +75,6 @@ namespace University.Repository.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            TeacherId = 1,
-                            Title = "C#"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            TeacherId = 2,
-                            Title = "Javascript"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            TeacherId = 1,
-                            Title = "Python"
-                        });
                 });
 
             modelBuilder.Entity("University.Models.Entities.Group", b =>
@@ -143,36 +103,6 @@ namespace University.Repository.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("Groups");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CourseId = 1,
-                            StudentId = 1,
-                            Title = "Group#1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CourseId = 2,
-                            StudentId = 2,
-                            Title = "Group#2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CourseId = 3,
-                            StudentId = 2,
-                            Title = "Group#2"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CourseId = 3,
-                            StudentId = 3,
-                            Title = "Group#2"
-                        });
                 });
 
             modelBuilder.Entity("University.Models.Entities.Student", b =>
@@ -185,6 +115,9 @@ namespace University.Repository.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -203,33 +136,9 @@ namespace University.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
+                    b.HasIndex("CourseId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BirthDate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "Lana@gmail.com",
-                            Name = "Lana Sten",
-                            PersonalNumber = "01025879658"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BirthDate = new DateTime(2002, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "luka@gmail.com",
-                            Name = "Luka Biwadze",
-                            PersonalNumber = "01025879651"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            BirthDate = new DateTime(2001, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "saba@gmail.com",
-                            Name = "Saba Beridze",
-                            PersonalNumber = "01025879621"
-                        });
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("University.Models.Entities.Teacher", b =>
@@ -248,18 +157,6 @@ namespace University.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Nika Chkhartishvili"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Giorgi Giorgadze"
-                        });
                 });
 
             modelBuilder.Entity("University.Models.Entities.Address", b =>
@@ -287,7 +184,7 @@ namespace University.Repository.Migrations
             modelBuilder.Entity("University.Models.Entities.Group", b =>
                 {
                     b.HasOne("University.Models.Entities.Course", "Course")
-                        .WithMany("Groups")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -301,6 +198,13 @@ namespace University.Repository.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("University.Models.Entities.Student", b =>
+                {
+                    b.HasOne("University.Models.Entities.Course", null)
+                        .WithMany("Groups")
+                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("University.Models.Entities.Course", b =>

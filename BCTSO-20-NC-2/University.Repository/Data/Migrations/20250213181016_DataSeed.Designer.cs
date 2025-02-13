@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using University.Repository.Data;
 
@@ -11,9 +12,11 @@ using University.Repository.Data;
 namespace University.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250213181016_DataSeed")]
+    partial class DataSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,6 +189,9 @@ namespace University.Repository.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -202,6 +208,8 @@ namespace University.Repository.Migrations
                         .HasColumnType("CHAR(11)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Students");
 
@@ -287,7 +295,7 @@ namespace University.Repository.Migrations
             modelBuilder.Entity("University.Models.Entities.Group", b =>
                 {
                     b.HasOne("University.Models.Entities.Course", "Course")
-                        .WithMany("Groups")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -301,6 +309,13 @@ namespace University.Repository.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("University.Models.Entities.Student", b =>
+                {
+                    b.HasOne("University.Models.Entities.Course", null)
+                        .WithMany("Groups")
+                        .HasForeignKey("CourseId");
                 });
 
             modelBuilder.Entity("University.Models.Entities.Course", b =>

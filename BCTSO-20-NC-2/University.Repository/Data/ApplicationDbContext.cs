@@ -10,5 +10,20 @@ namespace University.Repository.Data
         }
 
         public DbSet<Student> Students { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Group> Groups { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.SeedStudents();
+            modelBuilder.SeedAddresses();
+            modelBuilder.SeedCourses();
+            modelBuilder.SeedTeachers();
+            modelBuilder.SeedGroups();
+        }
+
     }
 }
