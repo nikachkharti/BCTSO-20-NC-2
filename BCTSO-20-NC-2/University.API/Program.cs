@@ -11,7 +11,9 @@ namespace University.API
 
             builder.Services.AddControllers();
             builder.Services.AddOpenApi();
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("Server=DESKTOP-SCSHELD\\SQLEXPRESS;Database=UniversityBCTSO20N;Trusted_Connection=true;TrustServerCertificate=true"));
+            builder.Services
+                .AddDbContext<ApplicationDbContext>(options => options
+                .UseSqlServer("Server=DESKTOP-SCSHELD\\SQLEXPRESS;Database=UniversityBCTSO20N;Trusted_Connection=true;TrustServerCertificate=true"));
 
             var app = builder.Build();
 
