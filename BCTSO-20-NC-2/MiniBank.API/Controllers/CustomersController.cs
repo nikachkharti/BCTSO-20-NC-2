@@ -21,5 +21,13 @@ namespace MiniBank.API.Controllers
             var result = await _customerService.GetCustomers();
             return Ok(result);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSingleCustomer([FromRoute] int id)
+        {
+            var result = await _customerService.GetCustomer(id);
+            return Ok(result);
+        }
+
     }
 }
