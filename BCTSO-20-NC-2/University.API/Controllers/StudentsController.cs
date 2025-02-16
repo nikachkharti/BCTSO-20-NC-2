@@ -17,7 +17,7 @@ namespace University.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddStudent([FromBody] Student model)
         {
-            await _studentRepository.AddStudent(model);
+            await _studentRepository.Add(model);
             return Ok();
         }
 
@@ -25,14 +25,14 @@ namespace University.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent([FromRoute] int id)
         {
-            await _studentRepository.DeleteStudent(id);
+            await _studentRepository.Delete(id);
             return Ok();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateStudent([FromBody] Student model)
         {
-            await _studentRepository.UpdateStudent(model);
+            await _studentRepository.Update(model);
             return Ok();
         }
 
@@ -40,7 +40,7 @@ namespace University.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetStudents()
         {
-            var result = await _studentRepository.GetAllStudents();
+            var result = await _studentRepository.GetAll();
             return Ok(result);
         }
 
@@ -48,7 +48,7 @@ namespace University.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStudent([FromRoute] int id)
         {
-            var result = await _studentRepository.GetStudent(id);
+            var result = await _studentRepository.Get(id);
             return Ok(result);
         }
     }

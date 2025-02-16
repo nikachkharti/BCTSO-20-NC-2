@@ -13,38 +13,38 @@ namespace University.Repository.Implementations
             _context = context;
         }
 
-        public async Task AddStudent(Student student)
+        public async Task Add(Student model)
         {
-            await _context.Students.AddAsync(student);
+            await _context.Students.AddAsync(model);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteStudent(int studentId)
+        public async Task Delete(int id)
         {
-            var studentToDelete = await _context.Students.FirstOrDefaultAsync(x => x.Id == studentId);
+            var studentToDelete = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
             _context.Students.Remove(studentToDelete);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Student>> GetAllStudents()
+        public async Task<List<Student>> GetAll()
         {
             return await _context.Students.ToListAsync();
         }
 
-        public async Task<Student> GetStudent(int studentId)
+        public async Task<Student> Get(int id)
         {
-            var result = await _context.Students.FirstOrDefaultAsync(x => x.Id == studentId);
+            var result = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
             return result;
         }
 
-        public async Task UpdateStudent(Student student)
+        public async Task Update(Student model)
         {
-            var studentToUpdate = await _context.Students.FirstOrDefaultAsync(x => x.Id == student.Id);
+            var studentToUpdate = await _context.Students.FirstOrDefaultAsync(x => x.Id == model.Id);
 
-            studentToUpdate.Name = student.Name;
-            studentToUpdate.PersonalNumber = student.PersonalNumber;
-            studentToUpdate.Email = student.Email;
-            studentToUpdate.BirthDate = student.BirthDate;
+            studentToUpdate.Name = model.Name;
+            studentToUpdate.PersonalNumber = model.PersonalNumber;
+            studentToUpdate.Email = model.Email;
+            studentToUpdate.BirthDate = model.BirthDate;
 
             await _context.SaveChangesAsync();
         }

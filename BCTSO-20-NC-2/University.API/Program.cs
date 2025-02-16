@@ -18,6 +18,10 @@ namespace University.API
                 .UseSqlServer("Server=DESKTOP-SCSHELD\\SQLEXPRESS;Database=UniversityBCTSO20N;Trusted_Connection=true;TrustServerCertificate=true"));
 
             builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+            builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+            builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+            builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
             var app = builder.Build();
 
