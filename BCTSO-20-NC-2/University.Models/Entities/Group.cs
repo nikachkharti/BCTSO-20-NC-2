@@ -5,18 +5,18 @@ namespace University.Models.Entities
 {
     public class Group
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Required]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        //[Required]
+        //[MaxLength(50)]
         public string Title { get; set; }
 
 
         //ბევრი ბევრთან კავშირი
-        [ForeignKey(nameof(Student))]
+        //[ForeignKey(nameof(Student))]
         public int StudentId { get; set; }
         public Student Student { get; set; }
         //[NotMapped]
@@ -24,7 +24,7 @@ namespace University.Models.Entities
 
 
         //ბევრი ბევრთან კავშირი
-        [ForeignKey(nameof(Course))]
+        //[ForeignKey(nameof(Course))]
         public int CourseId { get; set; }
         public Course Course { get; set; }
         //[NotMapped]
