@@ -29,13 +29,17 @@ namespace University.Repository.Implementations
 
         public async Task<Teacher> Get(int id)
         {
-            var result = await _context.Teachers.FirstOrDefaultAsync(x => x.Id == id);
+            var result = await _context.Teachers
+                .Include(x => x.Courses)
+                .FirstOrDefaultAsync(x => x.Id == id);
             return result;
         }
 
         public async Task<List<Teacher>> GetAll()
         {
-            return await _context.Teachers.ToListAsync();
+            return await _context.Teachers
+                .Include(x => x.Courses)
+                .ToListAsync();
         }
 
         public async Task Update(Teacher model)
