@@ -5,18 +5,18 @@ namespace University.Models.Entities
 {
     public class Course
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Required]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(150)]
+        //[Required]
+        //[MaxLength(150)]
         public string Title { get; set; }
 
 
         //ერთი ბევრთნ კავშირი
-        [ForeignKey(nameof(Teacher))]
+        //[ForeignKey(nameof(Teacher))]
         public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
 

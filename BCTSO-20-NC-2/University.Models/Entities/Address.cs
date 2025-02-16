@@ -5,22 +5,22 @@ namespace University.Models.Entities
 {
     public class Address
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Required]
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        //[Required]
+        //[MaxLength(50)]
         public string City { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        //[Required]
+        //[MaxLength(50)]
         public string Street { get; set; }
 
 
         //ერთი ერთთან კავშირი
-        [ForeignKey(nameof(Student))]
+        //[ForeignKey(nameof(Student))]
         public int StudentId { get; set; }
         public Student Student { get; set; }
     }
