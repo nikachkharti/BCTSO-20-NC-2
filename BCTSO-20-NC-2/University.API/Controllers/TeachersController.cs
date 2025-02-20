@@ -43,7 +43,8 @@ namespace University.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTeachers()
         {
-            return Ok();
+            var result = await _teacherService.GetAllTeachers();
+            return Ok(result);
         }
 
 

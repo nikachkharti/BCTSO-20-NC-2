@@ -1,4 +1,5 @@
-﻿using University.Models.Dtos.Course;
+﻿using AutoMapper;
+using University.Models.Dtos.Course;
 using University.Models.Dtos.Teacher;
 using University.Models.Entities;
 using University.Repository.Interfaces;
@@ -10,17 +11,17 @@ namespace University.Service.Implementations
     public class TeacherService : ITeacherService
     {
         private readonly ITeacherRepository _teacherRepository;
+        private readonly IMapper _mapper;
 
-        public TeacherService(ITeacherRepository teacherRepository)
+        public TeacherService(ITeacherRepository teacherRepository, IMapper mapper)
         {
             _teacherRepository = teacherRepository;
+            _mapper = mapper;
         }
 
         public async Task AddNewTeacher(TeacherForCreatingDto teacherForCreatingDto)
         {
-            Teacher obj = new Teacher();
-            obj.Name = teacherForCreatingDto.Name;
-
+            var obj = _mapper.Map<Teacher>(teacherForCreatingDto);
             await _teacherRepository.Add(obj);
         }
 
@@ -36,7 +37,17 @@ namespace University.Service.Implementations
 
         public async Task<List<TeacherForGettingDto>> GetAllTeachers()
         {
-            throw new NotImplementedException();
+            //1. ვიძახებ რეპოზიტორის
+            List<Teacher> teachers = await _teacherRepository.GetAll();
+
+            if (!teachers.Any())
+            {
+                throw new NotFoundException($"Teachers not found in database.");
+            }
+
+            //2. რეპოზიტორის მიერ დაბრუნებულ შედეგს გარდავაქმნი Dto - ებში.
+            var reuslt = _mapper.Map<List<TeacherForGettingDto>>(teachers);
+            return reuslt;
         }
 
         public async Task<TeacherForGettingDto> GetSingleTeacher(int teacherId)
@@ -50,30 +61,13 @@ namespace University.Service.Implementations
             }
 
             //2. რეპოზიტორის მიერ დაბრუნებულ შედეგს გარდავაქმნი Dto - ებში.
-            TeacherForGettingDto result = new();
-            List<CourseForGettingDto> courses = new();
-
-            if (repoResult.Courses.Any())
-            {
-                foreach (var repoCourses in repoResult.Courses)
-                {
-                    courses.Add(new CourseForGettingDto() { Id = repoCourses.Id, Title = repoCourses.Title });
-                }
-            }
-
-            result.Id = repoResult.Id;
-            result.Name = repoResult.Name;
-            result.Courses = courses;
-
+            var result = _mapper.Map<TeacherForGettingDto>(repoResult);
             return result;
         }
 
         public async Task UpdateTeacher(TeacherForUpdatingDto teacherForUpdatingDto)
         {
-            Teacher obj = new();
-            obj.Id = teacherForUpdatingDto.Id;
-            obj.Name = teacherForUpdatingDto.Name;
-
+            var obj = _mapper.Map<Teacher>(teacherForUpdatingDto);
             await _teacherRepository.Update(obj);
         }
     }
