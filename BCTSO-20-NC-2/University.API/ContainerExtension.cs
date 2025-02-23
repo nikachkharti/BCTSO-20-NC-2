@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using University.Models.Entities;
 using University.Repository.Data;
@@ -25,7 +26,8 @@ namespace University.API
         {
             builder.Services
                 .AddDbContext<ApplicationDbContext>(options => options
-                .UseSqlServer(builder.Configuration.GetConnectionString("SQLServerLocalConnection")));
+                .UseSqlServer(builder.Configuration.GetConnectionString("SQLServerLocalConnection"))
+                .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning)));
         }
         public static void AddAutoMapper(this WebApplicationBuilder builder)
         {

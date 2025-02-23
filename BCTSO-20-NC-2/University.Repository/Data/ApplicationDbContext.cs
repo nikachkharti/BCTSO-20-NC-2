@@ -21,12 +21,17 @@ namespace University.Repository.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.OverrideDefaultIdentityTableNames();
+
             modelBuilder.ConfigureStudents();
             modelBuilder.ConfigureAddresses();
             modelBuilder.ConfigureTeachers();
             modelBuilder.ConfigureCourses();
             modelBuilder.ConfigureGroups();
 
+            modelBuilder.SeedUsers();
+            modelBuilder.SeedRoles();
+            modelBuilder.SeedUserRoles();
             modelBuilder.SeedStudents();
             modelBuilder.SeedAddresses();
             modelBuilder.SeedCourses();
