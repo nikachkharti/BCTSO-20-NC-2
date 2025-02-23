@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
+using System.Text;
 using University.Models.Dtos.Identity;
 using University.Models.Entities;
 using University.Repository.Data;
@@ -10,6 +11,7 @@ using University.Repository.Interfaces;
 using University.Service.Implementations;
 using University.Service.Interfaces;
 using University.Service.Mapping;
+using Microsoft.IdentityModel.Tokens;
 
 namespace University.API
 {
@@ -51,12 +53,10 @@ namespace University.API
         {
             builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         }
-
         public static void ConfigureJwtOptions(this WebApplicationBuilder builder)
         {
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
         }
-
         public static void AddIdentity(this WebApplicationBuilder builder)
         {
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -72,8 +72,35 @@ namespace University.API
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
         }
+        public static void AddAuthentication(this WebApplicationBuilder builder)
+        {
+            JwtOptions jwtOptions = new();
+            var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
 
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidIssuer = jwtOptions.Issuer,
+                    ValidAudience = jwtOptions.Audience
+                };
+            });
 
+        }
+
+        public static void AddAuthService(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<IAuthService, AuthService>();
+        }
 
     }
 }

@@ -16,9 +16,8 @@ namespace University.API
             builder.ConfigureJwtOptions();
             builder.AddIdentity();
             builder.AddJwtGenerator();
-
-
-
+            builder.AddAuthentication();
+            builder.AddAuthService();
 
 
 
@@ -26,6 +25,7 @@ namespace University.API
 
             app.MapOpenApi();
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
             app.Run();
