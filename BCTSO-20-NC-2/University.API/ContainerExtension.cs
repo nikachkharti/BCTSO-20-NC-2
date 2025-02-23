@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using University.Models.Dtos.Identity;
 using University.Models.Entities;
 using University.Repository.Data;
 using University.Repository.Implementations;
@@ -46,6 +47,16 @@ namespace University.API
             builder.Services.AddScoped<ITeacherService, TeacherService>();
         }
 
+        public static void AddJwtGenerator(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+        }
+
+        public static void ConfigureJwtOptions(this WebApplicationBuilder builder)
+        {
+            builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
+        }
+
         public static void AddIdentity(this WebApplicationBuilder builder)
         {
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -61,5 +72,8 @@ namespace University.API
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
         }
+
+
+
     }
 }
