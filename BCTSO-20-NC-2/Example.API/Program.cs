@@ -1,4 +1,5 @@
 ﻿using Example.API.Data;
+using Example.API.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -21,7 +22,7 @@ namespace Example.API
 
             //Transinet - ყოველ ახალ გამოძახებაზე არეგისტრირებს ახალ ინსტანსს. ყველაზე ხანმოკლე სიცოცხლის უნარიანი.
             //builder.Services.AddTransient<IStudentService, StudentService>();
-
+            builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
             builder.Services
                .AddDbContext<ApplicationDbContext>(options => options
                .UseSqlServer(builder.Configuration.GetConnectionString("SQLServerLocalConnection"))
