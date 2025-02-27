@@ -12,6 +12,7 @@ using University.Service.Implementations;
 using University.Service.Interfaces;
 using University.Service.Mapping;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace University.API
 {
@@ -74,8 +75,11 @@ namespace University.API
         }
         public static void AddAuthentication(this WebApplicationBuilder builder)
         {
-            JwtOptions jwtOptions = new();
-            var key = Encoding.ASCII.GetBytes(jwtOptions.Secret);
+            var secret = builder.Configuration.GetValue<string>("ApiSettings:JwtOptions:Secret");
+            var issuer = builder.Configuration.GetValue<string>("ApiSettings:JwtOptions:Issuer");
+            var audience = builder.Configuration.GetValue<string>("ApiSettings:JwtOptions:Audience");
+
+            var key = Encoding.ASCII.GetBytes(secret);
 
             builder.Services.AddAuthentication(options =>
             {
@@ -90,8 +94,8 @@ namespace University.API
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidIssuer = jwtOptions.Issuer,
-                    ValidAudience = jwtOptions.Audience
+                    ValidIssuer = issuer,
+                    ValidAudience = audience
                 };
             });
 

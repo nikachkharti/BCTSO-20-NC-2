@@ -47,7 +47,7 @@ namespace University.Service.Implementations
 
                 if (!isValid)
                 {
-                    return new LoginResponseDto() { User = null, Token = string.Empty };
+                    return new LoginResponseDto() { Token = string.Empty };
                 }
 
                 var roles = await _userManager.GetRolesAsync(user);
@@ -62,11 +62,10 @@ namespace University.Service.Implementations
 
                 LoginResponseDto result = new()
                 {
-                    User = userDto,
                     Token = token
                 };
 
-                if (result.User is null)
+                if (result is null)
                 {
                     throw new InvalidOperationException(loginRequestDto.UserName);
                 }
