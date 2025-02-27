@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using University.Repository.Data;
 
@@ -11,9 +12,11 @@ using University.Repository.Data;
 namespace University.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250223170248_IdentityDataSeed")]
+    partial class IdentityDataSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,7 @@ namespace University.Repository.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("AspNetRoles", (string)null);
 
                     b.HasData(
                         new
@@ -85,7 +88,7 @@ namespace University.Repository.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims", (string)null);
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -110,7 +113,7 @@ namespace University.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims", (string)null);
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -132,7 +135,7 @@ namespace University.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins", (string)null);
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -147,7 +150,7 @@ namespace University.Repository.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("AspNetUserRoles", (string)null);
 
                     b.HasData(
                         new
@@ -183,7 +186,7 @@ namespace University.Repository.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens", (string)null);
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("University.Models.Entities.Address", b =>
@@ -303,24 +306,24 @@ namespace University.Repository.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
 
                     b.HasData(
                         new
                         {
                             Id = "8716071C-1D9B-48FD-B3D0-F059C4FB8031",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f09783ff-02a5-4ee0-87cf-ec2503d36959",
+                            ConcurrencyStamp = "a67d8c94-4cf8-4b10-aa39-56aeb6d6135b",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FullName = "Administrator",
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPzUDTVU06Z636/z5egE0e9bymnN0wRHpHcBYewzYtxVH6AnuwTRmKtM01ekvKe6LA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEoYrJrZlkAwl8UMCHiVuatguNt7edACJ5632qADG6+0xXqnErDdmjMfMg4e3rq6Fw==",
                             PhoneNumber = "555337681",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cd3d923d-322e-44d8-bdd2-9e38425afdf8",
+                            SecurityStamp = "13b8c030-84f4-4687-a58b-015824617fa5",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -328,17 +331,17 @@ namespace University.Repository.Migrations
                         {
                             Id = "D514EDC9-94BB-416F-AF9D-7C13669689C9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1de621d1-fd1a-44ec-97c4-d7703ba0740d",
+                            ConcurrencyStamp = "4f36fab6-1df8-4a5a-ae8e-277486df39ef",
                             Email = "nika@gmail.com",
                             EmailConfirmed = false,
                             FullName = "Nikoloz Chkhartishvili",
                             LockoutEnabled = true,
                             NormalizedEmail = "NIKA@GMAIL.COM",
                             NormalizedUserName = "NIKA@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB4v5CGiNqg8qYdNDChavh9SD/qs+EbebmxSSMtr0hOVDfq1QNbkUqCI7/HJdqMX7w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOvfvcf2gqT3WMEuNiznC47AcIWg8lEM46elDPESW+nmpCK7V6Q/0fOITBGJEVMUhg==",
                             PhoneNumber = "558490645",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b4b7bc9-a375-4829-82f2-3d45932ec24f",
+                            SecurityStamp = "a972a5ba-ccfa-47b0-b881-e805f8c735c6",
                             TwoFactorEnabled = false,
                             UserName = "nika@gmail.com"
                         },
@@ -346,17 +349,17 @@ namespace University.Repository.Migrations
                         {
                             Id = "87746F88-DC38-4756-924A-B95CFF3A1D8A",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7672fc12-cc43-4c82-b07b-1fe2928a0bb6",
+                            ConcurrencyStamp = "23d337d4-7917-4984-a922-d302ca89d2d0",
                             Email = "gio@gmail.com",
                             EmailConfirmed = false,
                             FullName = "Giorgi Giorgadze",
                             LockoutEnabled = true,
                             NormalizedEmail = "GIO@GMAIL.COM",
                             NormalizedUserName = "GIO@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFVXex2oHrQVaSGK63X9eTd4lpXAW7dtwXLS4RnYhRVB6NcX5ZHHtoPK6MB9V7NPSA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDc7T5VvEjU2d6RV8U1EXA8xnZS5q6JFjHsUBoh6AQD3pkxBZaPadHOOvK6eu0qyKw==",
                             PhoneNumber = "551442269",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "93bd5441-9369-4d7b-b9cc-df69bcce3e3b",
+                            SecurityStamp = "35adb7db-90b4-4277-9298-ccc005e6c8c2",
                             TwoFactorEnabled = false,
                             UserName = "gio@gmail.com"
                         });
