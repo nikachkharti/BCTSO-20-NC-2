@@ -1,8 +1,4 @@
-﻿
-using Example.API.Services;
-using Example.API.Services.Interfaces;
-
-namespace Example.API
+﻿namespace Example.API
 {
     public class Program
     {
@@ -17,10 +13,13 @@ namespace Example.API
             //builder.Services.AddSingleton<IStudentService, StudentService>();
 
             //Scoped - ყოველ ახალ გამოძახებაზე არეგისტრირებს ახალ ინსტანსს, მაგრამ მხოლოდ კონკრეტული scope - ის გარეთ. საშუალო სიცოცხლის უნარიანი
-            builder.Services.AddScoped<IStudentService, StudentService>();
+            //builder.Services.AddScoped<IStudentService, StudentService>();
 
             //Transinet - ყოველ ახალ გამოძახებაზე არეგისტრირებს ახალ ინსტანსს. ყველაზე ხანმოკლე სიცოცხლის უნარიანი.
             //builder.Services.AddTransient<IStudentService, StudentService>();
+
+
+
 
             var app = builder.Build();
 
