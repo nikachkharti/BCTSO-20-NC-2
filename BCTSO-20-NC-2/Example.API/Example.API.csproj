@@ -7,12 +7,24 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
+	  <Compile Remove="Controllers\**" />
+	  <Compile Remove="Services\**" />
+	  <Content Remove="Controllers\**" />
+	  <Content Remove="Services\**" />
+	  <EmbeddedResource Remove="Controllers\**" />
+	  <EmbeddedResource Remove="Services\**" />
+	  <None Remove="Controllers\**" />
+	  <None Remove="Services\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Controllers\" />
-	  <Folder Include="Services\" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 </Project>
