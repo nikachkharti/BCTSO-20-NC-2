@@ -53,13 +53,6 @@ namespace University.Service.Implementations
                 var roles = await _userManager.GetRolesAsync(user);
                 var token = _jwtTokenGenerator.GenerateToken(user, roles);
 
-                UserDto userDto = new()
-                {
-                    Email = user.Email,
-                    Id = user.Id,
-                    FullName = user.FullName
-                };
-
                 LoginResponseDto result = new()
                 {
                     Token = token
@@ -77,6 +70,7 @@ namespace University.Service.Implementations
                 throw new NotFoundException($"User {loginRequestDto.UserName} not found");
             }
         }
+
         public async Task Register(RegistrationRequestDto registrationRequestDto)
         {
             var user = _mapper.Map<ApplicationUser>(registrationRequestDto);
