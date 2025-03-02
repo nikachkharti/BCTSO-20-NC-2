@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using University.Models.Dtos.Teacher;
 using University.Models.Entities;
+using University.Repository.Data;
 using University.Repository.Interfaces;
 using University.Service.Interfaces;
+
+
+//TODO : Implement global exception handling middleware!!!
 
 namespace University.API.Controllers
 {
     [Route("api/teachers")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TeachersController : ControllerBase
     {
         private readonly ITeacherService _teacherService;
@@ -23,7 +28,10 @@ namespace University.API.Controllers
         public async Task<IActionResult> AddTeacher([FromBody] TeacherForCreatingDto model)
         {
             await _teacherService.AddNewTeacher(model);
-            return Created();
+            await _teacherService.SaveTeacher();
+
+            ApiResponse response = new(ApiResponseMessage.SuccessMessage, model, 201, isSuccess: true);
+            return StatusCode(response.StatusCode, response);
         }
 
 
@@ -31,14 +39,20 @@ namespace University.API.Controllers
         public async Task<IActionResult> DeleteTeacher([FromRoute] int id)
         {
             await _teacherService.DeleteTeacher(id);
-            return NoContent();
+            await _teacherService.SaveTeacher();
+
+            ApiResponse response = new(ApiResponseMessage.SuccessMessage, id, 204, isSuccess: true);
+            return StatusCode(response.StatusCode, response);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateTeacher([FromBody] TeacherForUpdatingDto model)
         {
             await _teacherService.UpdateTeacher(model);
-            return Ok();
+            await _teacherService.SaveTeacher();
+
+            ApiResponse response = new(ApiResponseMessage.SuccessMessage, model, 200, isSuccess: true);
+            return StatusCode(response.StatusCode, response);
         }
 
 
@@ -46,7 +60,8 @@ namespace University.API.Controllers
         public async Task<IActionResult> GetTeachers()
         {
             var result = await _teacherService.GetAllTeachers();
-            return Ok(result);
+            ApiResponse response = new(ApiResponseMessage.SuccessMessage, result, 200, isSuccess: true);
+            return StatusCode(response.StatusCode, response);
         }
 
 
@@ -54,7 +69,8 @@ namespace University.API.Controllers
         public async Task<IActionResult> GetTeacher([FromRoute] int id)
         {
             var result = await _teacherService.GetSingleTeacher(id);
-            return Ok(result);
+            ApiResponse response = new(ApiResponseMessage.SuccessMessage, result, 200, isSuccess: true);
+            return StatusCode(response.StatusCode, response);
         }
     }
 }

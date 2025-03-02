@@ -22,23 +22,30 @@ namespace University.Service.Implementations
         public async Task AddNewTeacher(TeacherForCreatingDto teacherForCreatingDto)
         {
             var obj = _mapper.Map<Teacher>(teacherForCreatingDto);
-            await _teacherRepository.Add(obj);
+            await _teacherRepository.AddAsync(obj);
         }
 
         public async Task DeleteTeacher(int id)
         {
             if (id <= 0)
             {
-                throw new ArgumentException($"Invalid argument passed");
+                throw new ArgumentException($"Invalid argument passed {id}");
             }
 
-            await _teacherRepository.Delete(id);
+            var teacherToDelete = await _teacherRepository.GetAsync(x => x.Id == id);
+
+            if (teacherToDelete is null)
+            {
+                throw new NotFoundException($"Teacher with id {id} not found");
+            }
+
+            _teacherRepository.Remove(teacherToDelete);
         }
 
         public async Task<List<TeacherForGettingDto>> GetAllTeachers()
         {
             //1. ვიძახებ რეპოზიტორის
-            List<Teacher> teachers = await _teacherRepository.GetAll();
+            List<Teacher> teachers = await _teacherRepository.GetAllAsync(includeProperties: "Courses");
 
             if (!teachers.Any())
             {
@@ -53,9 +60,9 @@ namespace University.Service.Implementations
         public async Task<TeacherForGettingDto> GetSingleTeacher(int teacherId)
         {
             //1. ვიძახებ რეპოზიტორის
-            Teacher repoResult = await _teacherRepository.Get(teacherId);
+            var repoResult = await _teacherRepository.GetAsync(x => x.Id == teacherId, includeProperties: "Courses");
 
-            if (repoResult == null)
+            if (repoResult is null)
             {
                 throw new NotFoundException($"Teacher with {teacherId} not found in database.");
             }
@@ -67,8 +74,16 @@ namespace University.Service.Implementations
 
         public async Task UpdateTeacher(TeacherForUpdatingDto teacherForUpdatingDto)
         {
+            if (teacherForUpdatingDto is null)
+            {
+                throw new ArgumentException($"Invalid argument passed {teacherForUpdatingDto}");
+            }
+
+
             var obj = _mapper.Map<Teacher>(teacherForUpdatingDto);
             await _teacherRepository.Update(obj);
         }
+
+        public async Task SaveTeacher() => await _teacherRepository.Save();
     }
 }

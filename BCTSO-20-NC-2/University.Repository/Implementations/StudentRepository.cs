@@ -5,48 +5,28 @@ using University.Repository.Interfaces;
 
 namespace University.Repository.Implementations
 {
-    public class StudentRepository : IStudentRepository
+    public class StudentRepository : RepositoryBase<Student>, IStudentRepository
     {
         private readonly ApplicationDbContext _context;
-        public StudentRepository(ApplicationDbContext context)
+
+        public StudentRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task Add(Student model)
+        public async Task Save() => await _context.SaveChangesAsync();
+
+        public async Task Update(Student entity)
         {
-            await _context.Students.AddAsync(model);
-            await _context.SaveChangesAsync();
-        }
+            var entityFromDb = await _context.Students.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
-        public async Task Delete(int id)
-        {
-            var studentToDelete = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
-            _context.Students.Remove(studentToDelete);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<List<Student>> GetAll()
-        {
-            return await _context.Students.ToListAsync();
-        }
-
-        public async Task<Student> Get(int id)
-        {
-            var result = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
-            return result;
-        }
-
-        public async Task Update(Student model)
-        {
-            var studentToUpdate = await _context.Students.FirstOrDefaultAsync(x => x.Id == model.Id);
-
-            studentToUpdate.Name = model.Name;
-            studentToUpdate.PersonalNumber = model.PersonalNumber;
-            studentToUpdate.Email = model.Email;
-            studentToUpdate.BirthDate = model.BirthDate;
-
-            await _context.SaveChangesAsync();
+            if (entityFromDb is not null)
+            {
+                entityFromDb.Name = entity.Name;
+                entityFromDb.PersonalNumber = entity.PersonalNumber;
+                entityFromDb.Email = entity.Email;
+                entityFromDb.BirthDate = entity.BirthDate;
+            }
         }
     }
 }
