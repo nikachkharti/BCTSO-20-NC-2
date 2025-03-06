@@ -25,6 +25,7 @@ namespace University.API
 
             var app = builder.Build();
 
+            app.CreateDatabaseAutomatically();
             app.MapOpenApi();
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
