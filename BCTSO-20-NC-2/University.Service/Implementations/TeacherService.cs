@@ -21,6 +21,18 @@ namespace University.Service.Implementations
 
         public async Task AddNewTeacher(TeacherForCreatingDto teacherForCreatingDto)
         {
+            if (teacherForCreatingDto is null)
+            {
+                throw new ArgumentNullException($"Invalid argument passed");
+            }
+
+            var allTeachers = await _teacherRepository.GetAllAsync();
+
+            if (allTeachers.Any(x => x.Name.ToLower().Trim() == teacherForCreatingDto.Name.ToLower().Trim()))
+            {
+                throw new AmbigousNameException();
+            }
+
             var obj = _mapper.Map<Teacher>(teacherForCreatingDto);
             await _teacherRepository.AddAsync(obj);
         }
@@ -59,6 +71,11 @@ namespace University.Service.Implementations
 
         public async Task<TeacherForGettingDto> GetSingleTeacher(int teacherId)
         {
+            if (teacherId <= 0)
+            {
+                throw new ArgumentException($"Argument can't be a negative number");
+            }
+
             //1. ვიძახებ რეპოზიტორის
             var repoResult = await _teacherRepository.GetAsync(x => x.Id == teacherId, includeProperties: "Courses");
 
@@ -70,6 +87,7 @@ namespace University.Service.Implementations
             //2. რეპოზიტორის მიერ დაბრუნებულ შედეგს გარდავაქმნი Dto - ებში.
             var result = _mapper.Map<TeacherForGettingDto>(repoResult);
             return result;
+
         }
 
         public async Task UpdateTeacher(TeacherForUpdatingDto teacherForUpdatingDto)
@@ -79,6 +97,12 @@ namespace University.Service.Implementations
                 throw new ArgumentException($"Invalid argument passed {teacherForUpdatingDto}");
             }
 
+            var teacherToUpdate = await _teacherRepository.GetAsync(x => x.Id == teacherForUpdatingDto.Id);
+
+            if (teacherToUpdate is null)
+            {
+                throw new NotFoundException($"Teacher with id {teacherForUpdatingDto.Id} not found");
+            }
 
             var obj = _mapper.Map<Teacher>(teacherForUpdatingDto);
             await _teacherRepository.Update(obj);

@@ -45,6 +45,7 @@ namespace University.API.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
+
         [HttpPut]
         public async Task<IActionResult> UpdateTeacher([FromBody] TeacherForUpdatingDto model)
         {

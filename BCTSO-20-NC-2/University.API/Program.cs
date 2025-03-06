@@ -1,3 +1,5 @@
+using University.API.Middleware;
+
 namespace University.API
 {
     public class Program
@@ -24,6 +26,7 @@ namespace University.API
             var app = builder.Build();
 
             app.MapOpenApi();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
