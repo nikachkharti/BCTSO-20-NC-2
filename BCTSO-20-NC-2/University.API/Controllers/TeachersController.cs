@@ -1,15 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using University.Models.Dtos.Teacher;
-using University.Models.Entities;
-using University.Repository.Data;
-using University.Repository.Interfaces;
 using University.Service.Interfaces;
 
-
-//TODO : Implement global exception handling middleware!!!
 
 namespace University.API.Controllers
 {
@@ -24,6 +16,11 @@ namespace University.API.Controllers
             _teacherService = teacherService;
         }
 
+        /// <summary>
+        /// მასწავლებლის დამატება
+        /// </summary>
+        /// <param name="model">ახალი მასწავლებლის DTO</param>
+        /// <returns>Task IActionReult</returns>
         [HttpPost]
         public async Task<IActionResult> AddTeacher([FromBody] TeacherForCreatingDto model)
         {
@@ -34,7 +31,11 @@ namespace University.API.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-
+        /// <summary>
+        /// მასწავლებლის წაშლა
+        /// </summary>
+        /// <param name="id">მასწავლებლის id</param>
+        /// <returns>Task IActionResult</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher([FromRoute] int id)
         {
@@ -45,7 +46,11 @@ namespace University.API.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
-
+        /// <summary>
+        /// მასწავლებლის განახლება
+        /// </summary>
+        /// <param name="model">განახლების DTO</param>
+        /// <returns>Task IActionResult</returns>
         [HttpPut]
         public async Task<IActionResult> UpdateTeacher([FromBody] TeacherForUpdatingDto model)
         {
@@ -57,6 +62,10 @@ namespace University.API.Controllers
         }
 
 
+        /// <summary>
+        /// ყველა მასწავლებელი
+        /// </summary>
+        /// <returns>Task IActionResult</returns>
         [HttpGet]
         public async Task<IActionResult> GetTeachers()
         {
@@ -66,6 +75,11 @@ namespace University.API.Controllers
         }
 
 
+        /// <summary>
+        /// კონკრეტული მასწავლებელი
+        /// </summary>
+        /// <param name="id">მასწავლების id</param>
+        /// <returns>Task IActionResult</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTeacher([FromRoute] int id)
         {

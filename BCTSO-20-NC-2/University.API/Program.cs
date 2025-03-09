@@ -9,7 +9,8 @@ namespace University.API
             var builder = WebApplication.CreateBuilder(args);
 
             builder.AddControllers();
-            builder.AddOpenApi();
+            //builder.AddOpenApi();
+            builder.AddSwagger();
             builder.AddDatabase();
             builder.AddAutoMapper();
             builder.AddRepositories();
@@ -26,7 +27,9 @@ namespace University.API
             var app = builder.Build();
 
             app.CreateDatabaseAutomatically();
-            app.MapOpenApi();
+            //app.MapOpenApi();
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseAuthentication();

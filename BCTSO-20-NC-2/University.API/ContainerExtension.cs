@@ -13,6 +13,7 @@ using University.Service.Interfaces;
 using University.Service.Mapping;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Reflection;
 
 namespace University.API
 {
@@ -104,6 +105,20 @@ namespace University.API
         public static void AddAuthService(this WebApplicationBuilder builder)
         {
             builder.Services.AddScoped<IAuthService, AuthService>();
+        }
+
+        public static void AddSwagger(this WebApplicationBuilder builder)
+        {
+
+
+            #region XML DOCUMENTATION
+            builder.Services.AddSwaggerGen(options =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+            });
+            #endregion
         }
 
     }
