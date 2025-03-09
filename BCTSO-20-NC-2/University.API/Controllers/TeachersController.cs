@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using University.Models.Dtos.Teacher;
 using University.Service.Interfaces;
 
@@ -7,7 +8,7 @@ namespace University.API.Controllers
 {
     [Route("api/teachers")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class TeachersController : ControllerBase
     {
         private readonly ITeacherService _teacherService;

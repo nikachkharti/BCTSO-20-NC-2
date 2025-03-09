@@ -14,6 +14,7 @@ using University.Service.Mapping;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 namespace University.API
 {
@@ -109,16 +110,40 @@ namespace University.API
 
         public static void AddSwagger(this WebApplicationBuilder builder)
         {
-
-
-            #region XML DOCUMENTATION
             builder.Services.AddSwaggerGen(options =>
             {
+                options.AddSecurityDefinition(name: JwtBearerDefaults.AuthenticationScheme, securityScheme: new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Description = "Enter the Bearer Authorization string as following: `Bearer` Generated-JWT-Token",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+                    Scheme = JwtBearerDefaults.AuthenticationScheme
+                });
+
+                options.AddSecurityRequirement(
+                        new OpenApiSecurityRequirement()
+                        {
+                            {
+                                new OpenApiSecurityScheme
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Type = ReferenceType.SecurityScheme,
+                                        Id = JwtBearerDefaults.AuthenticationScheme
+                                    }
+                                },
+                                new string[]{}
+                            }
+                        }
+                    );
+
+                #region XML documentation
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
+                #endregion
             });
-            #endregion
         }
 
     }
