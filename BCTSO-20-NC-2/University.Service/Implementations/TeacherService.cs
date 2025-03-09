@@ -26,7 +26,7 @@ namespace University.Service.Implementations
                 throw new ArgumentNullException($"Invalid argument passed");
             }
 
-            var allTeachers = await _teacherRepository.GetAllAsync();
+            var allTeachers = await _teacherRepository.GetAllAsync(pageNumber: 1, pageSize: 10);
 
             if (allTeachers.Any(x => x.Name.ToLower().Trim() == teacherForCreatingDto.Name.ToLower().Trim()))
             {
@@ -54,10 +54,10 @@ namespace University.Service.Implementations
             _teacherRepository.Remove(teacherToDelete);
         }
 
-        public async Task<List<TeacherForGettingDto>> GetAllTeachers()
+        public async Task<List<TeacherForGettingDto>> GetAllTeachers(int pageNumber, int pageSize)
         {
             //1. ვიძახებ რეპოზიტორის
-            List<Teacher> teachers = await _teacherRepository.GetAllAsync(includeProperties: "Courses");
+            List<Teacher> teachers = await _teacherRepository.GetAllAsync(pageNumber, pageSize, includeProperties: "Courses");
 
             if (!teachers.Any())
             {

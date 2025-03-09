@@ -14,7 +14,7 @@ namespace University.Repository.Implementations
             _dbSet = context.Set<T>();
         }
 
-        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter, string includeProperties = null)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter, int pageNumber, int pageSize, string includeProperties = null)
         {
             IQueryable<T> query = _dbSet;
 
@@ -22,7 +22,11 @@ namespace University.Repository.Implementations
             {
                 foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query = query.Include(includeProperty);
+                    query = query
+                        .Include(includeProperty)
+                        .Skip((pageNumber - 1) * pageSize)
+                        .Take(pageSize);
+
                 }
 
                 return await query.ToListAsync();
@@ -30,11 +34,13 @@ namespace University.Repository.Implementations
 
             var entities = await query
                 .Where(filter)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
             return entities;
         }
-        public async Task<List<T>> GetAllAsync(string includeProperties = null)
+        public async Task<List<T>> GetAllAsync(int pageNumber, int pageSize, string includeProperties = null)
         {
             if (!string.IsNullOrWhiteSpace(includeProperties))
             {
@@ -45,10 +51,18 @@ namespace University.Repository.Implementations
                     query = query.Include(includeProperty);
                 }
 
-                return await query.ToListAsync();
+                return await
+                    query
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
             }
 
-            return await _dbSet.ToListAsync();
+            return await
+                _dbSet
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
         public async Task<T> GetAsync(Expression<Func<T, bool>> filter, string includeProperties = null)
         {

@@ -8,7 +8,7 @@ namespace University.API.Controllers
 {
     [Route("api/teachers")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TeachersController : ControllerBase
     {
         private readonly ITeacherService _teacherService;
@@ -68,9 +68,9 @@ namespace University.API.Controllers
         /// </summary>
         /// <returns>Task IActionResult</returns>
         [HttpGet]
-        public async Task<IActionResult> GetTeachers()
+        public async Task<IActionResult> GetTeachers([FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
-            var result = await _teacherService.GetAllTeachers();
+            var result = await _teacherService.GetAllTeachers(pageNumber, pageSize);
             ApiResponse response = new(ApiResponseMessage.SuccessMessage, result, 200, isSuccess: true);
             return StatusCode(response.StatusCode, response);
         }
