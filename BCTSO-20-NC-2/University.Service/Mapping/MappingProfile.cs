@@ -13,7 +13,8 @@ namespace University.Service.Mapping
         public MappingProfile()
         {
             CreateMap<TeacherForCreatingDto, Teacher>()
-                .ForMember(dest => dest.Name, options => options.MapFrom(src => src.Name));
+                .ForMember(dest => dest.Name, options => options.MapFrom(src => src.Name))
+                .ForMember(dest => dest.ProfilePictureUrl, options => options.MapFrom(src => src.ProfilePictureUrl));
 
             CreateMap<TeacherForUpdatingDto, Teacher>()
                 .ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id))
@@ -28,7 +29,8 @@ namespace University.Service.Mapping
             CreateMap<Teacher, TeacherForGettingDto>()
                 .ForMember(dest => dest.Id, options => options.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, options => options.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Courses));
+                .ForMember(dest => dest.Courses, options => options.MapFrom(src => src.Courses))
+                .ForMember(dest => dest.ProfilePicturePath, options => options.MapFrom(src => src.ProfilePictureUrl));
 
 
             CreateMap<UserDto, ApplicationUser>().ReverseMap();

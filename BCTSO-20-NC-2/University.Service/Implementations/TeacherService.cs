@@ -11,12 +11,14 @@ namespace University.Service.Implementations
     public class TeacherService : ITeacherService
     {
         private readonly ITeacherRepository _teacherRepository;
+        private readonly IImageService _imageService;
         private readonly IMapper _mapper;
 
-        public TeacherService(ITeacherRepository teacherRepository, IMapper mapper)
+        public TeacherService(ITeacherRepository teacherRepository, IMapper mapper, IImageService imageService)
         {
             _teacherRepository = teacherRepository;
             _mapper = mapper;
+            _imageService = imageService;
         }
 
         public async Task AddNewTeacher(TeacherForCreatingDto teacherForCreatingDto)
@@ -32,6 +34,8 @@ namespace University.Service.Implementations
             {
                 throw new AmbigousNameException();
             }
+
+            teacherForCreatingDto.ProfilePictureUrl = await _imageService.UploadImage(teacherForCreatingDto.ProfilePicture);
 
             var obj = _mapper.Map<Teacher>(teacherForCreatingDto);
             await _teacherRepository.AddAsync(obj);
@@ -49,6 +53,11 @@ namespace University.Service.Implementations
             if (teacherToDelete is null)
             {
                 throw new NotFoundException($"Teacher with id {id} not found");
+            }
+
+            if (!string.IsNullOrWhiteSpace(teacherToDelete.ProfilePictureUrl))
+            {
+                _imageService.DeleteImage(teacherToDelete.ProfilePictureUrl);
             }
 
             _teacherRepository.Remove(teacherToDelete);

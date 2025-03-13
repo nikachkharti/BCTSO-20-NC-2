@@ -16,5 +16,7 @@ namespace University.Models.Entities
 
         //ერთი ბევრთან კავშირი
         public List<Course> Courses { get; set; }
+
+        public string ProfilePictureUrl { get; set; }
     }
 }

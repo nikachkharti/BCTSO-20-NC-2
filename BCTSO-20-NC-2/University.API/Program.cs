@@ -27,6 +27,7 @@ namespace University.API
             var app = builder.Build();
 
             app.CreateDatabaseAutomatically();
+            app.UseStaticFiles();
             //app.MapOpenApi();
             app.UseSwagger();
             app.UseSwaggerUI();

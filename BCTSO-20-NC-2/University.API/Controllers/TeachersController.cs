@@ -12,6 +12,7 @@ namespace University.API.Controllers
     public class TeachersController : ControllerBase
     {
         private readonly ITeacherService _teacherService;
+
         public TeachersController(ITeacherService teacherService)
         {
             _teacherService = teacherService;
@@ -23,7 +24,7 @@ namespace University.API.Controllers
         /// <param name="model">ახალი მასწავლებლის DTO</param>
         /// <returns>Task IActionReult</returns>
         [HttpPost]
-        public async Task<IActionResult> AddTeacher([FromBody] TeacherForCreatingDto model)
+        public async Task<IActionResult> AddTeacher([FromForm] TeacherForCreatingDto model)
         {
             await _teacherService.AddNewTeacher(model);
             await _teacherService.SaveTeacher();

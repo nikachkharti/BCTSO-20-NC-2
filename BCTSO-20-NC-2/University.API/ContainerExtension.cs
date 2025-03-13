@@ -49,6 +49,7 @@ namespace University.API
         }
         public static void AddServices(this WebApplicationBuilder builder)
         {
+            builder.Services.AddSingleton<IImageService, ImageService>();
             builder.Services.AddScoped<ITeacherService, TeacherService>();
         }
 
